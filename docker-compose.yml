@@ -4,5 +4,5 @@ services:
     image: t3docs/render-documentation:latest
     volumes:
     - ./:/PROJECT:ro
-    - ./Documentation-GENERATED-temp:/RESULT
+    - ../../Documentation/sav_filters:/RESULT
     command: makehtml
