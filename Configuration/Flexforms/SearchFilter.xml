@@ -1,0 +1,20 @@
+<T3DataStructure>
+	<ROOT>
+		<TCEforms>
+			<sheetTitle>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.type.3</sheetTitle>
+		</TCEforms>
+		<type>array</type>
+		<displayCond>FIELD:sDEF.settings.flexform.type:=:3</displayCond>
+		<el>
+			<settings.flexform.searchFilter.searchFields>
+				<TCEforms>
+					<label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.searchFields</label>
+					<config>
+						<type>input</type>
+						<size>30</size>
+					</config>
+				</TCEforms>
+			</settings.flexform.searchFilter.searchFields>
+		</el>
+	</ROOT>
+</T3DataStructure>			

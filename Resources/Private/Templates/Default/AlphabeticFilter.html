@@ -1,0 +1,33 @@
+<f:layout name="Default.html" />
+
+<f:section name="content">
+	<ul>
+		<f:for each="{values}" key="letter" as="value">
+			<f:if condition="{value}">
+				<f:then>
+					<li><f:link.action extensionName="savfilters"
+							pluginName="default" arguments="{cid:cid,selected:letter}"
+							class="{f:if(condition:'{selected}=={letter}',then:'selected')}">{letter}</f:link.action></li>
+				</f:then>
+				<f:else>
+					<li>{letter}</li>
+				</f:else>
+			</f:if>
+		</f:for>
+		<li class="all"><f:link.action extensionName="savfilters"
+				pluginName="default" arguments="{cid:cid,selected:'all'}"
+				class="{f:if(condition:'{selected}==\'all\'',then:'selected')}">
+				<f:translate
+					key="all" />
+			</f:link.action></li>
+
+		<f:if condition="{addSearchBox}">
+			<li class="searchBox"><f:form extensionName="savfilters"
+					pluginName="default">
+					<f:form.hidden name="cid" value="{cid}" />
+					<f:form.textfield name="searchAlphabeticFilter" placeholder="{f:translate(key:'form.searchBox.placeholder')}" value="{searchAlphabeticFilter}" /> 
+					<f:render partial="SubmitButton.html" arguments="{_all}" />
+				</f:form></li>
+		</f:if>
+	</ul>
+</f:section>

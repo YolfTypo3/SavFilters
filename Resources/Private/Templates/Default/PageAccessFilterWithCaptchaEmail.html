@@ -1,0 +1,34 @@
+{namespace freeCap=SJBR\SrFreecap\ViewHelpers}
+<f:layout name="Default.html" />
+
+<f:section name="content">
+	<f:if condition="{displayForm}">
+		<f:form extensionName="savfilters" pluginName="default">
+			<f:form.hidden name="cid" value="{cid}" />
+			<f:form.hidden name="captchaValidated" value="{captchaValidated}" />
+			<f:if condition="{captchaValidated}">
+				<f:then>
+					<div class="email">
+						<label for="email" class="above">{f:translate(key:'enterEmail')}</label>
+						<f:form.textfield id="email" name="email" size="50" />
+						<f:form.button class="submit" type="submit" name="submit"
+							title="{f:translate(key:'form.submit')}">{f:translate(key:'form.submit')}</f:form.button>
+					</div>
+				</f:then>
+				<f:else>
+					<div class="freecap">
+						<freeCap:image />
+						<label for="sjbr-freecap-captcha-response" class="above">{freeCap:translate(key:
+							'notice')}</label>
+						<f:form.textfield id="sjbr-freecap-captcha-response"
+							name="captchaResponse" size="50"
+							title="{freeCap:translate(key: 'notice')}" />
+						<f:form.button class="submit" type="submit" name="submit"
+							title="{f:translate(key:'form.submit')}">{f:translate(key:'form.submit')}</f:form.button>
+					</div>
+					<freeCap:audio />
+				</f:else>
+			</f:if>
+		</f:form>
+	</f:if>
+</f:section>

@@ -1,0 +1,21 @@
+<f:layout name="Default.html" />
+
+<f:section name="content">
+	<div class="container">
+		<f:if condition="{selectedFilterKey}">
+			<f:then>
+				<f:debug title="{f:translate(key:'debug.title.selectedFilter')}">{selectedFilterName} ({selectedFilterKey})</f:debug>
+				<f:if condition="{selectedFilterName} != 'DebugFilter'">
+					<f:debug title="{f:translate(key:'debug.title.sessionContent')}">{sessionSelectedFilter}</f:debug>
+				</f:if>
+
+				<f:if condition="{queryResult}">
+					<f:debug title="{f:translate(key:'debug.title.queryResult')}">{values}</f:debug>
+				</f:if>
+			</f:then>
+			<f:else>
+				<f:debug title="{f:translate(key:'debug.title.selectedFilter')}"><f:translate key="noFilterSelected" /></f:debug>
+			</f:else>
+		</f:if>
+	</div>
+</f:section>

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-09-27T15:17:02Z" product-name="sav_filters">
+		<header/>
+		<body>
+			<trans-unit id="all" xml:space="preserve">
+				<source>All</source>
+			</trans-unit>
+			<trans-unit id="clickLink" xml:space="preserve">
+				<source>Click on this link to access to the service.</source>
+			</trans-unit>	
+			<trans-unit id="debug.title.selectedFilter" xml:space="preserve">
+				<source>Selected filter</source>
+			</trans-unit>		
+			<trans-unit id="debug.title.sessionContent" xml:space="preserve">
+				<source>Session content</source>
+			</trans-unit>	
+			<trans-unit id="debug.title.queryResult" xml:space="preserve">
+				<source>Query result</source>
+			</trans-unit>			
+			<trans-unit id="emailSent" xml:space="preserve">
+				<source>A personnal link to access to the service was sent to you by email. Use this link to access to the service.
+If you do not receive it in the next minutes, you probably have entered an incorrect email.
+If you have the same problem after a new trial, please contact us.</source>
+			</trans-unit>
+			<trans-unit id="emailNotSent" xml:space="preserve">
+				<source>Your personnal link was not correctly sent. Please check the email address.</source>
+			</trans-unit>			
+			<trans-unit id="emailSubject" xml:space="preserve">
+				<source>Link to the service "%s".</source>
+			</trans-unit>			
+			<trans-unit id="emailTemplate" xml:space="preserve">
+				<source>Click on the following link to access to the service: %s
+This link is valid only for one request.
+				</source>
+			</trans-unit>					
+			<trans-unit id="enterEmail" xml:space="preserve">
+				<source>Enter a valid email address to receive your personal link to the service.</source>
+			</trans-unit>		
+			<trans-unit id="error.captchaNotValidated" xml:space="preserve">
+				<source>The input does not match the image. Please try again.</source>
+			</trans-unit>			
+			<trans-unit id="error.emailMustNotbeEmpty" xml:space="preserve">
+				<source>Email must not be empty.</source>
+			</trans-unit>	
+			<trans-unit id="error.forbiddenAccess" xml:space="preserve">
+				<source>You cannot access to this service.</source>
+			</trans-unit>						
+			<trans-unit id="error.missingSearchFields" xml:space="preserve">
+				<source>Error: please add search fields when the search box is used.</source>
+			</trans-unit>		
+			<trans-unit id="error.mustBeAuthenticated" xml:space="preserve">
+				<source>You must be authenticated to access to the service.</source>
+			</trans-unit>				
+			<trans-unit id="error.parameterMustBeginByPostOrGet" xml:space="preserve">
+				<source>The parameter %s must begin by "post" or "get".</source>
+			</trans-unit>			
+			<trans-unit id="flexform.additionalFilterWhereClause" xml:space="preserve">
+				<source>Additional WHERE clause to be added by the filter</source>
+			</trans-unit>					
+			<trans-unit id="flexform.allowedGroups" xml:space="preserve">
+				<source>Allowed groups</source>
+			</trans-unit>
+			<trans-unit id="flexform.backwardMonths" xml:space="preserve">
+				<source>Backward months</source>
+			</trans-unit>	
+			<trans-unit id="flexform.cruserIdForCaptchaEmail" xml:space="preserve">
+				<source>Value to be used for the field cruser_id</source>
+			</trans-unit>			
+			<trans-unit id="flexform.cssFile" xml:space="preserve">
+				<source>CSS File</source>
+			</trans-unit>	
+			<trans-unit id="flexform.emailSender" xml:space="preserve">
+				<source>Email sender</source>
+			</trans-unit>				
+			<trans-unit id="flexform.extensionWhereClauseAction" xml:space="preserve">
+				<source>Action performed by the filter on the extension WHERE clause</source>
+			</trans-unit>	
+			<trans-unit id="flexform.extensionWhereClauseAction.keep" xml:space="preserve">
+				<source>Keep</source>
+			</trans-unit>
+			<trans-unit id="flexform.extensionWhereClauseAction.remove" xml:space="preserve">
+				<source>Remove</source>
+			</trans-unit>											
+			<trans-unit id="flexform.filterWhereClause" xml:space="preserve">
+				<source>WHERE clause to be added by the filter</source>
+			</trans-unit>	
+			<trans-unit id="flexform.forwardMonths" xml:space="preserve">
+				<source>Forward months</source>
+			</trans-unit>						
+			<trans-unit id="flexform.fromClause" xml:space="preserve">
+				<source>FROM clause</source>
+			</trans-unit>				
+			<trans-unit id="flexform.groupByClause" xml:space="preserve">
+				<source>GROUP BY clause</source>
+			</trans-unit>		
+			<trans-unit id="flexform.key" xml:space="preserve">
+				<source>Key</source>
+			</trans-unit>
+			<trans-unit id="flexform.orderByClause" xml:space="preserve">
+				<source>ORDER BY clause</source>
+			</trans-unit>			
+			<trans-unit id="flexform.pageAccessType" xml:space="preserve">
+				<source>Type</source>
+			</trans-unit>				
+			<trans-unit id="flexform.pageAccessType.I.0" xml:space="preserve">
+				<source>---</source>
+			</trans-unit>	
+			<trans-unit id="flexform.pageAccessType.I.1" xml:space="preserve">
+				<source>Create a link to an Update Form for FE users</source>
+			</trans-unit>
+			<trans-unit id="flexform.pageAccessType.I.2" xml:space="preserve">
+				<source>Check the access to an Update Form by a FE user</source>
+			</trans-unit>
+			<trans-unit id="flexform.pageAccessType.I.3" xml:space="preserve">
+				<source>Create the access to an Update Form by captcha and email</source>
+			</trans-unit>
+			<trans-unit id="flexform.pageLink" xml:space="preserve">
+				<source>Create a link to the following page</source>
+			</trans-unit>																						
+			<trans-unit id="flexform.queryResult" xml:space="preserve">
+				<source>Display the result of a query "SELECT {selectClause} FROM {fromClause} WHERE 1 AND {filterWhereClause}"</source>
+			</trans-unit>					
+			<trans-unit id="flexform.searchBox" xml:space="preserve">
+				<source>Add a search box</source>
+			</trans-unit>			
+			<trans-unit id="flexform.searchFields" xml:space="preserve">
+				<source>Search fields</source>
+			</trans-unit>	
+			<trans-unit id="flexform.securityField" xml:space="preserve">
+				<source>Field for the security</source>
+			</trans-unit> 			
+			<trans-unit id="flexform.securityTable" xml:space="preserve">
+				<source>Table for the security</source>
+			</trans-unit>
+			<trans-unit id="flexform.selectClause" xml:space="preserve">
+				<source>SELECT clause</source>
+			</trans-unit>			
+			<trans-unit id="flexform.sessionFilter" xml:space="preserve">
+				<source>Session Filter</source>
+			</trans-unit>						
+			<trans-unit id="flexform.sheetTitle.sDEF" xml:space="preserve">
+				<source>General</source>
+			</trans-unit>					
+			<trans-unit id="flexform.template" xml:space="preserve">
+				<source>Template</source>
+			</trans-unit>							
+            <trans-unit id="flexform.type" xml:space="preserve">
+                <source>Type</source>
+            </trans-unit>	
+            <trans-unit id="flexform.type.1" xml:space="preserve">
+                <source>Alphabetic filter</source>
+            </trans-unit>	
+            <trans-unit id="flexform.type.2" xml:space="preserve">
+                <source>Months filter</source>
+            </trans-unit> 
+            <trans-unit id="flexform.type.3" xml:space="preserve">
+                <source>Search filter</source>
+            </trans-unit>  
+            <trans-unit id="flexform.type.4" xml:space="preserve">
+                <source>Selectors filter</source>
+            </trans-unit>  
+             <trans-unit id="flexform.type.5" xml:space="preserve">
+                <source>Mini calendar filter</source>
+            </trans-unit>              
+             <trans-unit id="flexform.type.6" xml:space="preserve">
+                <source>Page access filter to an Update Form</source>
+            </trans-unit>             
+              <trans-unit id="flexform.type.7" xml:space="preserve">
+                <source>Debug filter</source>
+            </trans-unit>           
+  			<trans-unit id="flexform.whereClause" xml:space="preserve">
+				<source>WHERE clause</source>
+			</trans-unit>		           		
+			<trans-unit id="form.submit" xml:space="preserve">
+				<source>Submit</source>
+			</trans-unit>
+			<trans-unit id="form.searchBox.placeholder" xml:space="preserve">
+				<source>Search</source>
+			</trans-unit>
+			<trans-unit id="noFilterSelected" xml:space="preserve">
+				<source>No filter selected</source>
+			</trans-unit>			
+			<trans-unit id="pi1_title" xml:space="preserve">
+				<source>SAV Filters</source>
+			</trans-unit>
+			<trans-unit id="pi1_plus_wiz_description" xml:space="preserve">
+				<source>SAV Filters</source>
+			</trans-unit>	
+
+		</body>
+	</file>
+</xliff>

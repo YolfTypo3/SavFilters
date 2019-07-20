@@ -1,0 +1,12 @@
+
+
+plugin.tx_savfilters {
+    view {
+        templateRootPaths.10 = {$plugin.tx_savfilters.view.templateRootPath}
+        partialRootPaths.10 = {$plugin.tx_savfilters.view.partialRootPath}
+        layoutRootPaths.10 = {$plugin.tx_savfilters.view.layoutRootPath}
+    }
+    persistence {
+        storagePid = {$plugin.tx_savfilters.persistence.storagePid}
+    }
+}

@@ -1,0 +1,18 @@
+<f:if condition="0">{namespace freeCap=SJBR\SrFreecap\ViewHelpers}</f:if>
+<f:layout name="Default.html" />
+
+<f:section name="content">
+	<f:security.ifAuthenticated>
+		<f:then>
+			<f:if condition="{pageAccessType} == 1">
+				<f:link.page pageUid="{pageLink}"
+					additionalParams="{tx_savfilters_default: {key: keyCode, key1: additionalKey}}">
+					<f:translate key="clickLink" />
+				</f:link.page>
+			</f:if>
+		</f:then>
+		<f:else>
+			<f:translate key="error.mustBeAuthenticated" />
+		</f:else>
+	</f:security.ifAuthenticated>
+</f:section>

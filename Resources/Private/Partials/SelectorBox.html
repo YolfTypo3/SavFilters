@@ -1,0 +1,2 @@
+{namespace sav=YolfTypo3\SavFiltersMvc\ViewHelpers}
+<f:form.select name="selectors[{item.fieldName}]" options="{item.values}" optionLabelField="{item.fieldLabel}" prependOptionLabel="---" prependOptionValue="0" value="{filterContext.selectors->sav:getItem(key:item.fieldName)}"/>

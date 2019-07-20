@@ -1,0 +1,17 @@
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+	</meta>
+	<sheets>
+	
+		<sDEF>EXT:sav_filters/Configuration/Flexforms/General.xml</sDEF>
+ 
+		<alphabeticFilter>EXT:sav_filters/Configuration/Flexforms/AlphabeticFilter.xml</alphabeticFilter>
+		<monthsFilter>EXT:sav_filters/Configuration/Flexforms/MonthsFilter.xml</monthsFilter>
+		<searchFilter>EXT:sav_filters/Configuration/Flexforms/SearchFilter.xml</searchFilter>
+		<selectorsFilter>EXT:sav_filters/Configuration/Flexforms/SelectorsFilter.xml</selectorsFilter>
+		<miniCalendarFilter>EXT:sav_filters/Configuration/Flexforms/MiniCalendarFilter.xml</miniCalendarFilter>
+		<pageAccessFilter>EXT:sav_filters/Configuration/Flexforms/PageAccessFilter.xml</pageAccessFilter>
+		<debugFilter>EXT:sav_filters/Configuration/Flexforms/DebugFilter.xml</debugFilter>				
+	</sheets>
+</T3DataStructure>

@@ -1,0 +1,26 @@
+{
+    "name": "yolftypo3/sav-filters",
+    "description": "A set of filters (alphabetic, months, search, selectors, mini calendar...) to be used with extension created by SAV Library Kickstarter for the SAV Library Plus.",
+    "type": "typo3-cms-extension",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+        "name": "Laurent Foulloy",
+        "email": "yolf.typo3@orange.fr",
+        "role": "Developer"
+        }
+    ],
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "sav_filters"
+        }
+    },    
+    "require": {
+        "typo3/cms-core": ">=8.7,<10.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "YolfTypo3\\SavFilters\\": "Classes/"
+        }
+    }
+}

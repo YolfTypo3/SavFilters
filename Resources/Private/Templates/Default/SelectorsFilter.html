@@ -1,0 +1,14 @@
+<f:layout name="Default.html" />
+
+<f:section name="content">
+	<f:form extensionName="savfilters" pluginName="default">
+		<f:form.hidden name="cid" value="{cid}" />
+		<ul>
+			<f:for each="{templates}" as="template" iteration="iterator">
+				<li class="item{iterator.index}"><f:format.raw>{template}</f:format.raw></li>
+			</f:for>
+			<li class="submit"><f:render
+					partial="SubmitButton.html" arguments="{_all}" /></li>
+		</ul>
+	</f:form>
+</f:section>

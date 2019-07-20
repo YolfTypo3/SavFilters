@@ -1,0 +1,48 @@
+<f:layout name="Default.html" />
+
+<f:section name="content">
+	<div class="miniCalendarContainer">
+
+		<div class="monthHeader">
+			<f:link.action arguments="{cid:cid,month:month.backward}"
+				title="{f:translate(key:'button.previousMonth')}">
+				<f:image class="leftArrow"
+					src="EXT:sav_filters/Resources/Public/Icons/leftArrow.gif" />
+			</f:link.action>
+			<f:link.action arguments="{cid:cid,month:month.current}"
+				title="{f:translate(key:'button.currentMonth')}" class="month">{currentMonthHeader}</f:link.action>
+			<f:link.action arguments="{cid:cid,month:month.forward}"
+				title="{f:translate(key:'button.nextMonth')}">
+				<f:image class="rightArrow"
+					src="EXT:sav_filters/Resources/Public/Icons/rightArrow.gif" />
+			</f:link.action>
+		</div>
+
+		<ul class="daysHeader">
+			<li class="week">&nbsp;</li>
+			<f:for each="{daysHeader}" as="dayHeader">
+				<li class="day">{dayHeader}</li>
+			</f:for>
+		</ul>
+		<ul class="weeksHeader">
+			<f:for each="{weeksHeader}" as="weekHeader">
+				<li class="week">{weekHeader}</li>
+			</f:for>
+		</ul>
+		<ul class="weeks">
+			<f:for each="{values}" as="value">
+				<f:if condition="{value.active}">
+					<f:then>
+						<li class="{value.class}"><f:link.action
+								arguments="{cid:cid,selected:value.active,month:month.active}"
+								class="{f:if(condition:'{selected}=={value.label}',then:'selected')}"
+								title="{value.title}">{value.label}</f:link.action></li>
+					</f:then>
+					<f:else>
+						<li class="{value.class}">{value.label}</li>
+					</f:else>
+				</f:if>
+			</f:for>
+		</ul>
+	</div>
+</f:section>

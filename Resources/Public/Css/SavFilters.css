@@ -1,0 +1,254 @@
+/**
+ * Default CSS - Extension 'SAV Filters'
+ *
+ * @author	Laurent Foulloy (yolf.typo3@orange.fr)
+ * @version		1.0 
+ */
+
+.savFilters {
+	width: 100%;
+	box-sizing: content-box;
+	height: auto;
+	margin-bottom: 5px;
+}
+.savFilters * {
+	box-sizing: content-box;
+}
+.savFilters ul.typo3-messages {
+	background-color: inherit;
+	font-weight: bold;
+	list-style: none;
+	padding: 0;
+}
+.savFilters ul.typo3-messages li::before {
+	content: none;
+}
+.savFilters .container.AlphabeticFilter, .savFilters .container.MonthsFilter,
+	.savFilters .container.SearchFilter, .savFilters .container.SelectorsFilter,
+	.savFilters .container.MiniCalendarFilter, .savFilters .container.PageAccessFilter{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: auto;
+	color: inherit;
+	margin: 0;
+	padding: 0;
+}
+.savFilters .container label{
+	font-weight: bold;
+	margin:0;
+}
+.savFilters .container .above {
+	display:block;
+}
+.savFilters .container .label {
+	font-weight: bold;
+	margin:0;
+}
+.savFilters .container ul {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: inherit;
+	padding: 0;
+	margin: 0;
+	background-color: #f1fbfd;
+	border: 1px #000099 solid;	
+	list-style: none;
+	padding: 2px;
+}
+.savFilters .container ul li {
+	display: inline-block;
+	line-height: normal;
+	background-image: none;
+	padding: 0;
+	margin-right: 4px;
+}
+.savFilters .container ul li.all {
+	margin-right: 10px;
+}
+.savFilters .container a {
+	background-color: inherit;
+	text-decoration: none;
+	font-weight: bold;
+	color: #4176FF;
+}
+.savFilters .container a.selected {
+	color: #EA6900;
+}
+.savFilters .container a:hover {
+	color: #EA6900;
+	text-decoration: underline;
+}
+.savFilters .container form {
+	margin: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.savFilters.SearchBox input {
+	margin-left: 10px;
+}
+.savFilters .container .submit {
+	cursor: pointer;
+}
+.savFilters .container .submit img {
+	width: 14px;
+	height: 14px;
+}
+
+/**
+ * SelectorsFilter 
+ */
+.savFilters  .container.SelectorsFilter ul{
+	align-items: flex-start;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+}
+.savFilters  .container.SelectorsFilter ul li{
+	margin:0 5px;
+}
+.savFilters  .container.SelectorsFilter form{
+	width:100%;
+}
+
+.savFilters .container.SelectorsFilter div.group {
+	display: block;
+} 
+.savFilters .container.SelectorsFilter div.group ul{
+	display: block;
+	border:none;
+} 
+.savFilters .container.SelectorsFilter div.group li{
+	margin:0;
+	display: block;
+} 
+.savFilters .container.SelectorsFilter div.group li input{
+	margin:0;
+}
+.savFilters .container.SelectorsFilter div.group label{
+	font-weight: normal;
+	margin:0;
+	padding:0 3px;
+}
+.savFilters .container.SelectorsFilter ul li.submit{
+	margin-left:auto;
+}
+
+/** 
+ * MiniCalendarFilter 
+ */
+.savFilters .container.MiniCalendarFilter {
+	height: auto;
+}
+.savFilters .container.MiniCalendarFilter .miniCalendarContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	width: 225px;
+	border: 1px solid #009CE3;
+}
+.savFilters .container.MiniCalendarFilter .monthHeader {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: #009CE3;
+	color: #FFFFFF;
+	font-weight: bold;
+	margin: 0;
+	padding: 2px 0 2px 0;
+	text-align: center;
+	margin-bottom: 1px;
+	width: inherit;
+}
+.savFilters .container.MiniCalendarFilter .monthHeader a.month{
+    color:inherit;
+}
+.savFilters .container.MiniCalendarFilter ul.daysHeader {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	background-color: #009CE3;
+	color: #FFFFFF;
+	width: inherit;
+	list-style: none outside none;
+	list-style-image: none;
+	margin: 0;
+	padding: 0;
+}
+.savFilters .container.MiniCalendarFilter ul.weeksHeader {
+	width: 24px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	background-color: #ffffff;
+	list-style: none outside none;
+	list-style-image: none;
+	margin: 0;
+	padding: 0;
+	border:none;
+	border-right: 1px solid #009CE3;
+}
+.savFilters .container.MiniCalendarFilter li.week {
+	width: 20px;
+	text-align: center;
+	background-image: none;
+	margin: 0px;
+	padding: 2px;
+}
+.savFilters .container.MiniCalendarFilter li.day {
+	width: 24px;
+	text-align: center;
+	background-image: none;
+	margin: 0px;
+	padding: 2px;
+}
+.savFilters .container.MiniCalendarFilter ul.weeks {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	background-color: #ffffff;
+	width: 200px;
+	list-style: none outside none;
+	list-style-image: none;
+	margin: 0;
+	padding: 0;
+	border:none;
+}
+.savFilters .container.MiniCalendarFilter ul.weeks li {
+	width: 24px;
+	text-align: center;
+	background-image: none;
+	margin: 0px;
+	padding: 2px;
+}
+.savFilters .container.MiniCalendarFilter ul.weeks li.weekend {
+	background-color: #eeeeee;
+}
+.savFilters .container.MiniCalendarFilter ul.weeks li.today {
+	border: 1px solid #000;
+}
+.savFilters .container.MiniCalendarFilter ul.weeks li.notInMonth {
+	background-color: #88d9ff;
+}
+
+/**
+ * PageAccessFilter 
+ */
+ .savFilters .container.PageAccessFilter {
+ 	justify-content:flex-start;
+ }
+ .savFilters .container.PageAccessFilter .freecap label {
+ 	margin: 10px 0;
+ }
+ .savFilters .container.PageAccessFilter .freecap span.tx-srfreecap-cant-read {
+ 	margin-left: 10px;
+ }
+  .savFilters .container.PageAccessFilter .email label {
+ 	margin: 10px 0;
+ }

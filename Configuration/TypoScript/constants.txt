@@ -1,0 +1,15 @@
+
+plugin.tx_savfilters {
+    view {
+        # cat=plugin.tx_savfilters/file; type=string; label=Path to template root (FE)
+        templateRootPath = EXT:sav_filters/Resources/Private/Templates/
+        # cat=plugin.tx_savfilters/file; type=string; label=Path to template partials (FE)
+        partialRootPath = EXT:sav_filters/Resources/Private/Partials/
+        # cat=plugin.tx_savfilters/file; type=string; label=Path to template layouts (FE)
+        layoutRootPath = EXT:sav_filters/Resources/Private/Layouts/
+    }
+    persistence {
+        # cat=plugin.tx_savfilters//a; type=string; label=Default storage PID
+        storagePid =
+    }
+}
