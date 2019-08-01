@@ -29,7 +29,7 @@ Access for Authenticated Users
    a frontend user.
 
    .. figure:: ../../Images/PageAccessFilterCreateLinkInFrontEnd.png
-      :alt: Link for Fe Users in the front end
+      :alt: Link for Fe Users in the frontend
 
 #. Create the access checking in the page to which the link is set.
   
@@ -68,7 +68,7 @@ Access by a Personnal Link Sent by Email
 #. Add an **Update Form** (see :ref:`Tutorial 7
    <savlibraryplus:tutorial7>` in the SAV Library Plus documentation).
    
-#. Answer correctly to the captcha in the front end and submit.
+#. Answer correctly to the captcha in the frontend and submit.
 
    .. figure:: ../../Images/PageAccessFilterCreateCaptchaInFrontEnd.png
       :alt: Create the captcha
@@ -90,4 +90,4 @@ Access by a Personnal Link Sent by Email
 #. Click on the link contained in the email and you should access to the **Update Form**.
 
    .. figure:: ../../Images/PageAccessFilterCreateCaptchaAndEmailInFrontEnd.png
-      :alt: Access to the Update Form in the Front end
+      :alt: Access to the Update Form in the frontend

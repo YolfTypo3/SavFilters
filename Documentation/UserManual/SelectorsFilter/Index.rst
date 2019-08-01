@@ -8,10 +8,10 @@ Selectors Filter
 
 The selectors filter is a powerful tool to build filters including selector lists, 
 radio buttons, checkboxes... The following caption illustrates the result, in 
-the front end, of the configuration described in this section.
+the frontend, of the configuration described in this section.
 
 .. figure:: ../../Images/SelectorsFilterInFrontEnd.png
-   :alt: Selector filter in the front end
+   :alt: Selector filter in the frontend
 
 Each item in the selector has its own configuration in the flexform.
 

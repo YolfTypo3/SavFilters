@@ -30,4 +30,4 @@ Screenshots
 ===========
 
 .. figure:: ../Images/FiltersInFrontEnd.png
-   :alt: Filters in the Front End
+   :alt: Filters in the frontend
