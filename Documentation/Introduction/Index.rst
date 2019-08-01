@@ -6,7 +6,7 @@
 Introduction
 ============
 
-What does it do?
+What Does it Do?
 ================
 
 This extension provides filters for extensions built with the SAV Library
@@ -15,7 +15,7 @@ g/extensions/repository/view/sav_library_kickstarter>`_ and
 `sav\_library\_plus
 <http://typo3.org/extensions/repository/view/sav_library_plus>`_ ).
 
-This extension replaces the following extensions:
+This extension replaces the following deprecated extensions:
 
 - SAV Filter Alphabetic (sav_filter_abc)
 - SAV Filter Mini Calendar (sav_filter_minicalendar)
@@ -30,4 +30,4 @@ Screenshots
 ===========
 
 .. figure:: ../Images/FiltersInFrontEnd.png
-  :alt: Filters in the Front End
+   :alt: Filters in the Front End

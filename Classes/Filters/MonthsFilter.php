@@ -35,7 +35,7 @@ class MonthsFilter extends AbstractFilter
             $searchFields = $this->controller->getFilterSetting('searchFields');
             $matches = [];
             // Gets the fields that are comma-separated but \, are kept
-            if( preg_match_all('/((?:\\\\,|[^,])+)/', $searchFields, $matches)) {
+            if (preg_match_all('/((?:\\\\,|[^,])+)/', $searchFields, $matches)) {
                 $filterWhereClause = '';
                 foreach ($matches[1] as $match) {
                     $filterWhereClause .= 'FROM_UNIXTIME(' . trim(str_replace('\,', ',', $match)) . ') LIKE \'%{post.searchMonthsFilter}%\' OR ';
@@ -47,6 +47,8 @@ class MonthsFilter extends AbstractFilter
             if ($selected != 'all') {
                 $filterWhereClause = $this->controller->getFilterSetting('filterWhereClause');
                 $addWhere .= $this->replaceParametersInFilterWhereClauseQuery($filterWhereClause);
+            } else {
+                $addWhere = '1';
             }
         }
         $this->setFieldInSessionFilter('addWhere', $this->buildFilterWhereClause($addWhere));

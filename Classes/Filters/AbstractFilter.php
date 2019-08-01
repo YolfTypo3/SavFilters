@@ -221,7 +221,6 @@ abstract class AbstractFilter
         $this->getTypoScriptFrontendController()->fe_user->storeSessionData();
     }
 
-
     /**
      * Setter for a field in session filter
      *
@@ -335,7 +334,7 @@ abstract class AbstractFilter
         $fromPart = $queryBuilder->getQueryPart('from')[0]['table'];
         $queryBuilder->select('*')
             ->where($queryBuilder->expr()
-                ->in($fromPart . '.pid', $queryBuilder->createNamedParameter(GeneralUtility::intExplode(',', $pidList, true), Connection::PARAM_INT_ARRAY, ':pid')))
+            ->in($fromPart . '.pid', $queryBuilder->createNamedParameter(GeneralUtility::intExplode(',', $pidList, true), Connection::PARAM_INT_ARRAY, ':pid')))
             ->add('select', $selectClause);
 
         // Adds the WHERE Clause if any
@@ -361,8 +360,9 @@ abstract class AbstractFilter
      * @param string $table
      * @return QueryBuilder
      */
-    protected function getQueryBuilder($table) {
-        //Filters the FROM clause to get the INNER JOIN parts if any);
+    protected function getQueryBuilder($table)
+    {
+        // Filters the FROM clause to get the INNER JOIN parts if any);
         $match = [];
         preg_match('/(?P<From>\w+)(?P<InnerJoin>.*)/', $table, $match);
         $fromClause = $match['From'];
@@ -374,22 +374,15 @@ abstract class AbstractFilter
 
         // Adds the INNER JOIN clause if any
         $leftTable = $fromClause;
-        foreach($matches[0] as $matchKey => $match) {
+        foreach ($matches[0] as $matchKey => $match) {
             $rightTable = $matches['Table'][$matchKey];
             $alias = trim($matches['Alias'][$matchKey]);
             if (empty($alias)) {
                 $alias = $rightTable;
             }
-         
-            $queryBuilder->join(
-                $leftTable,
-                $rightTable,
-                $alias,
-                $queryBuilder->expr()->eq(
-                    $matches['OnLeft'][$matchKey],
-                    $queryBuilder->quoteIdentifier($matches['OnRight'][$matchKey])
-                    )
-                );
+
+            $queryBuilder->join($leftTable, $rightTable, $alias, $queryBuilder->expr()
+                ->eq($matches['OnLeft'][$matchKey], $queryBuilder->quoteIdentifier($matches['OnRight'][$matchKey])));
             $leftTable = $alias;
         }
         $queryBuilder->from($fromClause);
@@ -397,11 +390,11 @@ abstract class AbstractFilter
         return $queryBuilder;
     }
 
-
     /**
      * Builds the filter WHERE clause
      *
-     * @param string whereClause
+     * @param
+     *            string whereClause
      * @return string
      */
     protected function buildFilterWhereClause($whereClause)
