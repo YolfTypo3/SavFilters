@@ -29,9 +29,12 @@ use YolfTypo3\SavFilters\Controller\DefaultController;
  */
 class PageAccessFilter extends AbstractFilter
 {
+
     // Page access type constants
     const CREATE_LINK_FOR_FE_USERS = 1;
+
     const CHECK_ACCESS_FE_USER = 2;
+
     const CREATE_ACCESS_CAPTCHA_EMAIL = 3;
 
     /**
@@ -40,8 +43,7 @@ class PageAccessFilter extends AbstractFilter
      * @return void
      */
     protected function setAddWhereInSessionFilter()
-    {
-    }
+    {}
 
     /**
      * Initialisation of the filter
@@ -79,7 +81,7 @@ class PageAccessFilter extends AbstractFilter
                 $this->httpVariablesProcessingForCheckAccessFeUser();
                 break;
             case self::CREATE_ACCESS_CAPTCHA_EMAIL:
-                $this-> httpVariablesProcessingForCreateAccessCaptchaEmail();
+                $this->httpVariablesProcessingForCreateAccessCaptchaEmail();
                 break;
         }
     }
@@ -105,10 +107,8 @@ class PageAccessFilter extends AbstractFilter
                 if (! empty($securityField) && ! empty($securityTable)) {
                     // Creates the query builder
                     $queryBuilder = $this->getQueryBuilder($securityTable);
-                    $queryBuilder->select($securityField)
-                        ->where($queryBuilder->expr()
-                            ->eq('fe_users.uid', $queryBuilder->createNamedParameter($feUserUid, \PDO::PARAM_INT))
-                        );
+                    $queryBuilder->select($securityField)->where($queryBuilder->expr()
+                        ->eq('fe_users.uid', $queryBuilder->createNamedParameter($feUserUid, \PDO::PARAM_INT)));
                     // Gets the additional key
                     $rows = $queryBuilder->execute()->fetchAll(\PDO::FETCH_BOTH);
 
@@ -191,7 +191,7 @@ class PageAccessFilter extends AbstractFilter
         }
 
         $this->forceSetSessionFields = true;
-        $this->setFieldInSessionFilter('formAction', 'updateForm');
+        $this->setFieldInSessionFilter('formAction', 'form');
         $this->setFieldInSessionFilter('uid', $uid);
         $addWhere = $securityTable . '.uid=' . intval($uid);
         $this->setFieldInSessionFilter('addWhere', $this->buildFilterWhereClause($addWhere));
@@ -221,15 +221,15 @@ class PageAccessFilter extends AbstractFilter
         if (! empty($this->httpVariables['key'])) {
             $queryBuilder = $this->getQueryBuilder($securityTable);
             $queryBuilder->select('uid')
-            ->add('select', 'MD5(CONCAT(uid, \'' . $key . '\', ' . $securityField . ')) AS keyCode, uid')
-            ->groupBy('keyCode', 'uid')
-            ->having($queryBuilder->expr()
+                ->add('select', 'MD5(CONCAT(uid, \'' . $key . '\', ' . $securityField . ')) AS keyCode, uid')
+                ->groupBy('keyCode', 'uid')
+                ->having($queryBuilder->expr()
                 ->eq('keyCode', $queryBuilder->createNamedParameter($this->httpVariables['key'], \PDO::PARAM_STR)));
             $rows = $queryBuilder->execute()->fetchAll();
 
             if (! empty($rows[0]['keyCode'])) {
                 $this->controller->getView()->assign('displayForm', false);
-                $this->setFieldInSessionFilter('formAction', 'updateForm');
+                $this->setFieldInSessionFilter('formAction', 'form');
                 $uid = $rows[0]['uid'];
                 $this->setFieldInSessionFilter('uid', $uid);
                 $addWhere = $securityTable . '.uid=' . intval($uid);
@@ -258,21 +258,22 @@ class PageAccessFilter extends AbstractFilter
 
                 // Prepares the email
                 $arguments = [
-                    $this->controller->getConfigurationManager()->getContentObject()->typoLink(
-                        $this->getTypoScriptFrontendController()->page['title'],
-                        [
-                            'parameter' => $this->getTypoScriptFrontendController()->id,
-                            'additionalParams' => '&tx_savfilters_default[controller]=Default&tx_savfilters_default[key]=' . md5($uid . $key . $email),
-                            'useCacheHash' => true
-                        ]
-                    )
+                    $this->controller->getConfigurationManager()
+                        ->getContentObject()
+                        ->typoLink($this->getTypoScriptFrontendController()->page['title'], [
+                        'parameter' => $this->getTypoScriptFrontendController()->id,
+                        'additionalParams' => '&tx_savfilters_default[controller]=Default&tx_savfilters_default[key]=' . md5($uid . $key . $email),
+                        'useCacheHash' => true
+                    ])
                 ];
 
                 $mailSender = $this->controller->getFilterSetting('emailSender');
                 $mailReceiver = $email;
 
                 $mailMessage = LocalizationUtility::translate('emailTemplate', 'sav_filters', $arguments);
-                $mailSubject = LocalizationUtility::translate('emailSubject', 'sav_filters', [$this->getTypoScriptFrontendController()->page['title']]);
+                $mailSubject = LocalizationUtility::translate('emailSubject', 'sav_filters', [
+                    $this->getTypoScriptFrontendController()->page['title']
+                ]);
                 try {
                     $mail = GeneralUtility::makeInstance(MailMessage::class);
                     $mail->setSubject($mailSubject);
@@ -291,24 +292,20 @@ class PageAccessFilter extends AbstractFilter
                     $this->controller->getView()->assign('displayForm', false);
                 } else {
                     // Remove the record
-                    GeneralUtility::makeInstance(ConnectionPool::class)
-                    ->getConnectionForTable($securityTable)
-                    ->delete(
-                        $securityTable,
-                        ['uid' => (int)$uid],
-                        [Connection::PARAM_INT]
-                        );
+                    GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($securityTable)->delete($securityTable, [
+                        'uid' => (int) $uid
+                    ], [
+                        Connection::PARAM_INT
+                    ]);
                     DefaultController::addError('emailNotSent');
                 }
-
             } else {
                 DefaultController::addError('error.emailMustNotbeEmpty');
                 $this->controller->getView()->assign('captchaValidated', true);
             }
-
         } else {
             if (ExtensionManagementUtility::isLoaded('sr_freecap')) {
-                $captchaValidator =  GeneralUtility::makeInstance(\SJBR\SrFreecap\Validation\Validator\CaptchaValidator::class);
+                $captchaValidator = GeneralUtility::makeInstance(\SJBR\SrFreecap\Validation\Validator\CaptchaValidator::class);
                 $validationResult = $captchaValidator->Validate($this->httpVariables['captchaResponse']);
 
                 if (! $validationResult->hasErrors()) {
@@ -323,6 +320,5 @@ class PageAccessFilter extends AbstractFilter
             }
         }
     }
-
 }
 ?>
