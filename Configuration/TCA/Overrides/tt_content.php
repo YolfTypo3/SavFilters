@@ -18,5 +18,6 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['savfilters_d
 	'LLL:EXT:sav_filters/Resources/Private/Language/locallang_db.xlf:tt_content.list_type_pi1'
 );
 
+// Adds addToInsertRecords() if any
 
 ?>
