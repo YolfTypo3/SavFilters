@@ -1,6 +1,6 @@
-.. include:: ../../Includes.txt
+.. include:: ../../../Includes.txt
 
-.. _pageAccesFilter:
+.. _savLibraryPlus.pageAccesFilter:
 
 ==================
 Page Access Filter
@@ -22,30 +22,30 @@ Access for Authenticated Users
 
 #. Create the link in a page.
 
-   .. figure:: ../../Images/PageAccessFilterCreateLinkInBackEnd.png
+   .. figure:: ../../../Images/SavLibraryPlusPageAccessFilterCreateLinkInBackEnd.png
       :alt: Create the link for Fe Users
   
    You may see the following in the frontend if you are logged in as
    a frontend user.
 
-   .. figure:: ../../Images/PageAccessFilterCreateLinkInFrontEnd.png
+   .. figure:: ../../../Images/SavLibraryPlusPageAccessFilterCreateLinkInFrontEnd.png
       :alt: Link for Fe Users in the frontend
 
 #. Create the access checking in the page to which the link is set.
   
-   .. figure:: ../../Images/PageAccessFilterCheckAccessInBackEnd.png
+   .. figure:: ../../../Images/SavLibraryPlusPageAccessFilterCheckAccessInBackEnd.png
       :alt: Create the access to a FE user
   
 #. Add an **Update Form** (see :ref:`Tutorial 7
    <savlibraryplus:tutorial7>` in the SAV Library Plus documentation).
      
-   .. figure:: ../../Images/PageAccessFilterAddUpdateFormInBackEnd.png
+   .. figure:: ../../../Images/SavLibraryPlusPageAccessFilterAddUpdateFormInBackEnd.png
       :alt: Add an Update Form    
   
    Clicking on the link created in 1. will open the **Update Form** for 
    the logged frontend user.
 
-   .. figure:: ../../Images/PageAccessFilterCheckAccessInFrontEnd.png
+   .. figure:: ../../../Images/SavLibraryPlusPageAccessFilterCheckAccessInFrontEnd.png
       :alt: Create the access to a frontend user
  
 Access by a Personnal Link Sent by Email
@@ -57,7 +57,7 @@ Access by a Personnal Link Sent by Email
 	
 #. Create the access in a page and fill the flexform with your parameter.
 
-   .. figure:: ../../Images/PageAccessFilterCreateCaptchaAndEmailInBackEnd.png
+   .. figure:: ../../../Images/SavLibraryPlusPageAccessFilterCreateCaptchaAndEmailInBackEnd.png
       :alt: Create the captcha and email access
   		
    .. important:: 
@@ -70,24 +70,24 @@ Access by a Personnal Link Sent by Email
    
 #. Answer correctly to the captcha in the frontend and submit.
 
-   .. figure:: ../../Images/PageAccessFilterCreateCaptchaInFrontEnd.png
+   .. figure:: ../../../Images/SavLibraryPlusPageAccessFilterCreateCaptchaInFrontEnd.png
       :alt: Create the captcha
   		
 #. Enter your email adress and submit.
 
-   .. figure:: ../../Images/PageAccessFilterCreateEmailInFrontEnd.png
+   .. figure:: ../../../Images/SavLibraryPlusPageAccessFilterCreateEmailInFrontEnd.png
       :alt: Enter the email
   		
 #. If you entered a valid email, a message is displayed and you should received an email
    containing your personnal link to the service
    
-   .. figure:: ../../Images/PageAccessFilterCreateEmailSubmissionInFrontEnd.png
+   .. figure:: ../../../Images/SavLibraryPlusPageAccessFilterCreateEmailSubmissionInFrontEnd.png
       :alt: Message after submission
  
-   .. figure:: ../../Images/PageAccessFilterCreateEmailReceived.png
+   .. figure:: ../../../Images/SavLibraryPlusPageAccessFilterCreateEmailReceived.png
       :alt: Email recieved
  		
 #. Click on the link contained in the email and you should access to the **Update Form**.
 
-   .. figure:: ../../Images/PageAccessFilterCreateCaptchaAndEmailInFrontEnd.png
+   .. figure:: ../../../Images/SavLibraryPlusPageAccessFilterCreateCaptchaAndEmailInFrontEnd.png
       :alt: Access to the Update Form in the frontend

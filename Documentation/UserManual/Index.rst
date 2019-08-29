@@ -21,7 +21,7 @@ Installation
 Configuration flexform
 ======================
 
-#. Select the filter type in the **General** folder.
+#. Select the library type and the filter type in the **General** folder.
 
 	.. figure:: ../Images/FilterTypeInBackEnd.png
 		:alt: Filter type in the configuration flexform
@@ -43,16 +43,10 @@ Configuration flexform
 #. Then fill the folder associated with the selected type.
 
 .. toctree::
-	:maxdepth: 5
-	:titlesonly:
-	:glob:
+   :maxdepth: 5
+   :titlesonly:
+   :glob:
 	
-	AlphabeticFilter/Index
-	MinicalendarFilter/Index
-	MonthsFilter/Index
-	SearchFilter/Index
-	SelectorsFilter/Index
-	PageAccessFilter/Index
-	DebugFilter/Index
+   FiltersForSavLibraryPlus/Index
+   FiltersForSavLibraryMvc/Index
 
-  

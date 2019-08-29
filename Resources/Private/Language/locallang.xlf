@@ -51,10 +51,16 @@ This link is valid only for one request.
 			</trans-unit>		
 			<trans-unit id="error.mustBeAuthenticated" xml:space="preserve">
 				<source>You must be authenticated to access to the service.</source>
-			</trans-unit>				
+			</trans-unit>		
 			<trans-unit id="error.parameterMustBeginByPostOrGet" xml:space="preserve">
 				<source>The parameter %s must begin by "post" or "get".</source>
-			</trans-unit>			
+			</trans-unit>	
+		    <trans-unit id="error.typeMustBe" xml:space="preserve">
+                <source>The type of the field "%s" must be %s.</source>
+            </trans-unit>                    
+            <trans-unit id="error.unknownMethod" xml:space="preserve">
+                <source>Check if the method %s is in the model.</source>
+            </trans-unit> 					
 			<trans-unit id="flexform.additionalFilterWhereClause" xml:space="preserve">
 				<source>Additional WHERE clause to be added by the filter</source>
 			</trans-unit>					
@@ -81,7 +87,19 @@ This link is valid only for one request.
 			</trans-unit>
 			<trans-unit id="flexform.extensionWhereClauseAction.remove" xml:space="preserve">
 				<source>Remove</source>
-			</trans-unit>											
+			</trans-unit>		
+			<trans-unit id="flexform.fieldName" xml:space="preserve">
+                <source>Field name</source>
+            </trans-unit> 
+			<trans-unit id="flexform.fieldsName" xml:space="preserve">
+                <source>Fields name</source>
+            </trans-unit>  	             	
+            <trans-unit id="flexform.fieldNameForDate" xml:space="preserve">
+                <source>Field name for the date</source>
+            </trans-unit> 
+            <trans-unit id="flexform.fieldNameForTitle" xml:space="preserve">
+                <source>Field name for the title</source>				
+            </trans-unit>  											
 			<trans-unit id="flexform.filterWhereClause" xml:space="preserve">
 				<source>WHERE clause to be added by the filter</source>
 			</trans-unit>	
@@ -97,6 +115,18 @@ This link is valid only for one request.
 			<trans-unit id="flexform.key" xml:space="preserve">
 				<source>Key</source>
 			</trans-unit>
+			<trans-unit id="flexform.libraryType" xml:space="preserve">
+				<source>Library type</source>
+			</trans-unit>	
+			<trans-unit id="flexform.libraryType.0" xml:space="preserve">
+				<source>Plus</source>
+			</trans-unit>		
+			<trans-unit id="flexform.libraryType.1" xml:space="preserve">
+				<source>Mvc</source>
+			</trans-unit>	
+            <trans-unit id="flexform.modelClassName" xml:space="preserve">
+                <source>Model class name</source>
+            </trans-unit>									
 			<trans-unit id="flexform.orderByClause" xml:space="preserve">
 				<source>ORDER BY clause</source>
 			</trans-unit>			
@@ -120,7 +150,10 @@ This link is valid only for one request.
 			</trans-unit>																						
 			<trans-unit id="flexform.queryResult" xml:space="preserve">
 				<source>Display the result of a query "SELECT {selectClause} FROM {fromClause} WHERE 1 AND {filterWhereClause}"</source>
-			</trans-unit>					
+			</trans-unit>	
+			<trans-unit id="flexform.queryResultMvc" xml:space="preserve">
+				<source>Display the given fields for the given model when a filter is applied</source>
+			</trans-unit>								
 			<trans-unit id="flexform.searchBox" xml:space="preserve">
 				<source>Add a search box</source>
 			</trans-unit>			
@@ -187,7 +220,9 @@ This link is valid only for one request.
 			<trans-unit id="pi1_plus_wiz_description" xml:space="preserve">
 				<source>SAV Filters</source>
 			</trans-unit>	
-
+			<trans-unit id="searchFilter.placeholder" xml:space="preserve">
+                <source>Search</source>
+            </trans-unit>                
 		</body>
 	</file>
 </xliff>

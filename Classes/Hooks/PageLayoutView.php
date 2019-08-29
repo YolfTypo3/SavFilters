@@ -14,6 +14,7 @@ namespace YolfTypo3\SavFilters\Hooks;
  * The TYPO3 project - inspiring people to share
  */
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Lang\LanguageService;
 
 /**
  * Hook to display verbose information about default plugin in Web>Page module
@@ -57,10 +58,13 @@ class PageLayoutView
         if ($params['row']['list_type'] == self::LIST_TYPE) {
             // Gets the flexform data
             $this->flexformData = GeneralUtility::xml2array($params['row']['pi_flexform']);
-            // Adds the type
+            // Gets the filter type
             $type = $this->getFieldFromFlexform('settings.flexform.type');
+            // Gets the library type
+            $libraryType = $this->getFieldFromFlexform('settings.flexform.libraryType');
+            $libraryType = ($libraryType ? $libraryType : '0');
 
-            $result .= $this->getLanguageService()->sL(self::LANGUAGE_ROOT_PATH . 'locallang.xlf:' . 'flexform.type.' . $type);
+            $result .= $this->getLanguageService()->sL(self::LANGUAGE_ROOT_PATH . 'locallang.xlf:' . 'flexform.type.' . $type) . ' (' . $this->getLanguageService()->sL(self::LANGUAGE_ROOT_PATH . 'locallang.xlf:' . 'flexform.libraryType.' . $libraryType) . ')';
         }
         return $result;
     }
@@ -73,7 +77,7 @@ class PageLayoutView
      *            name of the key
      * @param string $sheet
      *            name of the sheet
-     * @return string|NULL if nothing found, value if found
+     * @return string|null if nothing found, value if found
      */
     protected function getFieldFromFlexform($key, $sheet = 'sDEF')
     {
@@ -91,7 +95,7 @@ class PageLayoutView
     /**
      * Returns the language service instance
      *
-     * @return \TYPO3\CMS\Lang\LanguageService
+     * @return LanguageService
      */
     protected function getLanguageService()
     {

@@ -12,6 +12,14 @@
 		<selectorsFilter>EXT:sav_filters/Configuration/Flexforms/SelectorsFilter.xml</selectorsFilter>
 		<miniCalendarFilter>EXT:sav_filters/Configuration/Flexforms/MiniCalendarFilter.xml</miniCalendarFilter>
 		<pageAccessFilter>EXT:sav_filters/Configuration/Flexforms/PageAccessFilter.xml</pageAccessFilter>
-		<debugFilter>EXT:sav_filters/Configuration/Flexforms/DebugFilter.xml</debugFilter>				
+		<debugFilter>EXT:sav_filters/Configuration/Flexforms/DebugFilter.xml</debugFilter>		
+		
+		<alphabeticFilterMvc>EXT:sav_filters/Configuration/Flexforms/AlphabeticFilterMvc.xml</alphabeticFilterMvc>		
+		<monthsFilterMvc>EXT:sav_filters/Configuration/Flexforms/MonthsFilterMvc.xml</monthsFilterMvc>		
+		<searchFilterMvc>EXT:sav_filters/Configuration/Flexforms/SearchFilterMvc.xml</searchFilterMvc>
+		<selectorsFilterMvc>EXT:sav_filters/Configuration/Flexforms/SelectorsFilterMvc.xml</selectorsFilterMvc>
+		<miniCalendarFilterMvc>EXT:sav_filters/Configuration/Flexforms/MiniCalendarFilterMvc.xml</miniCalendarFilterMvc>						
+		<debugFilterMvc>EXT:sav_filters/Configuration/Flexforms/DebugFilterMvc.xml</debugFilterMvc>		
+
 	</sheets>
 </T3DataStructure>

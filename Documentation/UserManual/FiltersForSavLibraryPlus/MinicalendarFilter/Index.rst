@@ -1,6 +1,6 @@
-.. include:: ../../Includes.txt
+.. include:: ../../../Includes.txt
 
-.. _minicalendarFilter:
+.. _savLibraryPlus.minicalendarFilter:
 
 ===================
 Minicalendar Filter
@@ -11,7 +11,7 @@ In the following example, the calendar displays the creation of frontend users.
 The user name is used as a title attribute for the links.
 
 
-.. figure:: ../../Images/MinicalendarFilterInBackEnd.png
+.. figure:: ../../../Images/SavLibraryPlusMinicalendarFilterInBackEnd.png
    :alt: Configuration of the minicalendar filter
  
 The variable **{currentMonth}** is replaced by the current month represented 

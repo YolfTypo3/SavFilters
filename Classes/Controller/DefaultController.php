@@ -38,26 +38,41 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use YolfTypo3\SavFilters\Filters\AlphabeticFilter;
-use YolfTypo3\SavFilters\Filters\MonthsFilter;
-use YolfTypo3\SavFilters\Filters\SearchFilter;
-use YolfTypo3\SavFilters\Filters\SelectorsFilter;
-use YolfTypo3\SavFilters\Filters\MiniCalendarFilter;
-use YolfTypo3\SavFilters\Filters\PageAccessFilter;
+use YolfTypo3\SavFilters\Filters\AlphabeticFilterMvc;
 use YolfTypo3\SavFilters\Filters\DebugFilter;
+use YolfTypo3\SavFilters\Filters\DebugFilterMvc;
+use YolfTypo3\SavFilters\Filters\DefaultFilter;
+use YolfTypo3\SavFilters\Filters\MiniCalendarFilter;
+use YolfTypo3\SavFilters\Filters\MiniCalendarFilterMvc;
+use YolfTypo3\SavFilters\Filters\MonthsFilter;
+use YolfTypo3\SavFilters\Filters\MonthsFilterMvc;
+use YolfTypo3\SavFilters\Filters\PageAccessFilter;
+use YolfTypo3\SavFilters\Filters\SearchFilter;
+use YolfTypo3\SavFilters\Filters\SearchFilterMvc;
+use YolfTypo3\SavFilters\Filters\SelectorsFilter;
+use YolfTypo3\SavFilters\Filters\SelectorsFilterMvc;
 
 /**
  * Default Controller
  */
 class DefaultController extends ActionController
 {
-    const AlphabeticFilter = 1;
-    const MonthsFilter = 2;
-    const SearchFilter = 3;
-    const SelectorsFilter = 4;
-    const MiniCalendarFilter = 5;
-    const PageAccessFilter = 6;
-    const DebugFilter = 7;
 
+    const DefaultFilter = 0;
+
+    const AlphabeticFilter = 1;
+
+    const MonthsFilter = 2;
+
+    const SearchFilter = 3;
+
+    const SelectorsFilter = 4;
+
+    const MiniCalendarFilter = 5;
+
+    const PageAccessFilter = 6;
+
+    const DebugFilter = 7;
 
     /**
      * The filter classes
@@ -65,14 +80,37 @@ class DefaultController extends ActionController
      * @var array
      */
     protected $filterClasses = [
-        'Default',
-        self::AlphabeticFilter => AlphabeticFilter::class,
-        self::MonthsFilter => MonthsFilter::class,
-        self::SearchFilter => SearchFilter::class,
-        self::SelectorsFilter => SelectorsFilter::class,
-        self::MiniCalendarFilter => MiniCalendarFilter::class,
-        self::PageAccessFilter => PageAccessFilter::class,
-        self::DebugFilter => DebugFilter::class
+        self::DefaultFilter => [
+            DefaultFilter::class,
+            DefaultFilter::class
+        ],
+        self::AlphabeticFilter => [
+            AlphabeticFilter::class,
+            AlphabeticFilterMvc::class
+        ],
+        self::MonthsFilter => [
+            MonthsFilter::class,
+            MonthsFilterMvc::class
+        ],
+        self::SearchFilter => [
+            SearchFilter::class,
+            SearchFilterMvc::class
+        ],
+        self::SelectorsFilter => [
+            SelectorsFilter::class,
+            SelectorsFilterMvc::class
+        ],
+        self::MiniCalendarFilter => [
+            MiniCalendarFilter::class,
+            MiniCalendarFilterMvc::class
+        ],
+        self::PageAccessFilter => [
+            PageAccessFilter::class
+        ],
+        self::DebugFilter => [
+            DebugFilter::class,
+            DebugFilterMvc::class
+        ]
     ];
 
     /**
@@ -81,7 +119,6 @@ class DefaultController extends ActionController
      * @var string
      */
     protected static $cssPath = 'Resources/Public/Css/SavFilters.css';
-
 
     /**
      * Initializes the controller before invoking an action method.
@@ -134,8 +171,11 @@ class DefaultController extends ActionController
         // Gets the view type
         $filterType = $this->getFilterType();
 
+        // Gets the library type
+        $librarytype = $this->getLibraryType();
+
         // Gets the filter class name
-        $filterClassName = $this->filterClasses[$filterType];
+        $filterClassName = $this->filterClasses[$filterType][$librarytype];
 
         // Gets the template file name
         $templateFileName = $this->getFilterName() . '.html';
@@ -199,6 +239,20 @@ class DefaultController extends ActionController
     }
 
     /**
+     * Gets the library type
+     *
+     * @return int
+     */
+    public function getLibraryType(): int
+    {
+        if (! isset($this->settings['flexform']['libraryType'])) {
+            return 0;
+        } else {
+            return $this->settings['flexform']['libraryType'];
+        }
+    }
+
+    /**
      * Gets the extension WHERE clause action
      *
      * @return int|null
@@ -235,9 +289,19 @@ class DefaultController extends ActionController
      */
     public function getFilterName(): string
     {
-        return (new \ReflectionClass($this->filterClasses[$this->getFilterType()]))->getShortName();
+        $filterType = $this->getFilterType();
+        $libraryType = 0;
+        return (new \ReflectionClass($this->filterClasses[$filterType][$libraryType]))->getShortName();
+    }
 
-        return basename($this->filterClasses[$this->getFilterType()]);
+    /**
+     * Gets the settings
+     *
+     * @return array
+     */
+    public function getSettings()
+    {
+        return $this->settings;
     }
 
     /**
@@ -302,7 +366,7 @@ class DefaultController extends ActionController
         $templateRootPaths = $this->view->getTemplateRootPaths();
         return $templateRootPaths[0] . 'Default/';
     }
-    
+
     /**
      * Adds a cascading style Sheet
      *
@@ -315,7 +379,7 @@ class DefaultController extends ActionController
         $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
         $pageRenderer->addCssFile($cascadingStyleSheet);
     }
-    
+
     /**
      * Gets the relative web path of a given extension.
      *

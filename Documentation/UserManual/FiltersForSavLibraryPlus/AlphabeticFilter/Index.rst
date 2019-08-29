@@ -1,6 +1,6 @@
-.. include:: ../../Includes.txt
+.. include:: ../../../Includes.txt
 
-.. _alphabeticFilter:
+.. _savLibraryPlus.alphabeticFilter:
 
 =================
 Alphabetic Filter
@@ -11,7 +11,7 @@ to build the query that will be used to generate the list of active letters.
 In the following example, the query returns the first letter of the names 
 of the frontend users. 
 
-.. figure:: ../../Images/AlphabeticFilterQueryInBackEnd.png
+.. figure:: ../../../Images/SavLibraryPlusAlphabeticFilterQueryInBackEnd.png
   :alt: Query for the alphabetic filter
   
 .. note::
@@ -23,14 +23,14 @@ clause to be added by the filter. In the following example, the filter
 will add a restriction to the selected letter. 
 The FLUID variable **selected** used in the template must be prepended by **get**. 
 
-.. figure:: ../../Images/AlphabeticFilterWhereClauseInBackEnd.png
+.. figure:: ../../../Images/SavLibraryPlusAlphabeticFilterWhereClauseInBackEnd.png
   :alt: WHERE clause for the alphabetic filter
   
 Finally, the alphabetic filter includes the restriction to frontend 
 groups and makes it possible to add a search box.
 The search fields must be coma-separated.
 
-.. figure:: ../../Images/AlphabeticFilterSearchBoxInBackEnd.png
+.. figure:: ../../../Images/SavLibraryPlusAlphabeticFilterSearchBoxInBackEnd.png
   :alt: WHERE clause for the alphabetic filter
 
 .. important::

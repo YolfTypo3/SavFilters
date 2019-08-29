@@ -1,0 +1,57 @@
+<T3DataStructure>
+	<ROOT>
+		<TCEforms>
+			<sheetTitle>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.type.4</sheetTitle>
+		</TCEforms>
+		<type>array</type>
+		<displayCond>
+			<AND>
+				<numIndex index="0">FIELD:sDEF.settings.flexform.libraryType:=:1</numIndex>
+			 	<numIndex index="1">FIELD:sDEF.settings.flexform.type:=:4</numIndex>
+			</AND>
+		</displayCond>
+		<el>
+ 			<settings.flexform.selectorsFilterMvc.items>
+            	<type>array</type>
+                <section>1</section>                    
+                <el>
+                    <item>
+                        <type>array</type>                    
+                        <title>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:extensionFlexform.item</title>
+                        <el>
+                            <template>
+                                <TCEforms>
+                                    <exclude>1</exclude>
+                                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.template</label>
+									<config>
+										<type>text</type>
+										<cols>48</cols>
+										<rows>5</rows>         
+               						</config>  
+                                </TCEforms>                                    
+                            </template>
+                            <modelClassName>                                                                               
+                                <TCEforms>
+                                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.modelClassName</label>
+                                    <config>
+                                        <type>input</type>
+                                        <size>30</size>
+                                    </config>
+                                </TCEforms>
+                            </modelClassName>
+                            <fieldName>
+                                <TCEforms>
+                                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.fieldName</label>
+                                    <config>
+                                        <type>input</type>
+                                        <size>30</size>
+                                    </config>
+                                </TCEforms>
+                            </fieldName>                                    
+                        </el>
+                    </item>
+                </el>                        
+            </settings.flexform.selectorsFilterMvc.items>	
+		</el>
+	</ROOT>
+</T3DataStructure>			

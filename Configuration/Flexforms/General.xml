@@ -5,6 +5,27 @@
 		</TCEforms>
 		<type>array</type>
 		<el>
+			<settings.flexform.libraryType>
+				<TCEforms>
+					<exclude>1</exclude>
+					<label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.libraryType</label>
+					<config>
+						<type>select</type>
+						<items>
+							<numIndex index="0" type="array">
+								<numIndex index="0">LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.libraryType.0</numIndex>
+								<numIndex index="1">0</numIndex>
+							</numIndex> 
+							<numIndex index="1" type="array">
+								<numIndex index="0">LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.libraryType.1</numIndex>
+								<numIndex index="1">1</numIndex>
+							</numIndex>	
+						</items>
+						<size>1</size>
+					</config>
+					<onChange>reload</onChange>
+				</TCEforms>
+			</settings.flexform.libraryType>			
 			<settings.flexform.type>
 				<TCEforms>
 					<exclude>1</exclude>

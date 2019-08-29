@@ -74,7 +74,15 @@ Ce lien n'est valide que pour cette demande.
 			<trans-unit id="error.parameterMustBeginByPostOrGet" xml:space="preserve">
 				<source>The parameter %s must begin by "post" or "get".</source>
 				<target>Le paramètre %s doit commencer par "post" ou "get".</target>
-			</trans-unit>		
+			</trans-unit>	
+		    <trans-unit id="error.typeMustBe" xml:space="preserve">
+                <source>The type of the field "%s" must be %s.</source>
+                <target>Le type du champ "%s" doit être %s.</target>
+            </trans-unit>  
+            <trans-unit id="error.unknownMethod" xml:space="preserve">
+                <source>Check if the method %s is in the model.</source>
+                <target>Vérifier si la méthode %s est dans le modèle.</source>
+            </trans-unit>                				
 			<trans-unit id="flexform.additionalFilterWhereClause" xml:space="preserve">
 				<source>Additional WHERE clause to be added by the filter</source>
 				<target>Clause WHERE additionnelle qui sera ajoutée par le filtre</target>				
@@ -109,7 +117,23 @@ Ce lien n'est valide que pour cette demande.
 			<trans-unit id="flexform.extensionWhereClauseAction.remove" xml:space="preserve">
 				<source>Remove</source>
 				<target>Supprimer</target>
-			</trans-unit>											
+			</trans-unit>	
+			<trans-unit id="flexform.fieldName" xml:space="preserve">
+                <source>Field name</source>
+                <target>Champ</target>
+            </trans-unit> 
+			<trans-unit id="flexform.fieldsName" xml:space="preserve">
+                <source>Fields name</source>*
+                <target>Champs</target>                
+            </trans-unit>  	             	
+            <trans-unit id="flexform.fieldNameForDate" xml:space="preserve">
+                <source>Field name for the date</source>
+                <target>Champ pour la date</target>                
+            </trans-unit> 
+            <trans-unit id="flexform.fieldNameForTitle" xml:space="preserve">
+                <source>Field name for the title</source>	
+                <target>Champ pour le titre</target>                			
+            </trans-unit>  													
 			<trans-unit id="flexform.filterWhereClause" xml:space="preserve">
 				<source>WHERE clause to be added by the filter</source>
 				<target>Clause WHERE qui sera ajoutée par le filtre</target>
@@ -130,6 +154,10 @@ Ce lien n'est valide que pour cette demande.
 				<source>Key</source>
 				<target>Clé</target>
 			</trans-unit>
+            <trans-unit id="flexform.modelClassName" xml:space="preserve">
+                <source>Model class name</source>            
+                <target>Classe du modèle</target>
+            </trans-unit>				
 			<trans-unit id="flexform.orderByClause" xml:space="preserve">
 				<source>ORDER BY clause</source>
 				<target>Clause ORDER BY</target>
@@ -161,7 +189,11 @@ Ce lien n'est valide que pour cette demande.
 			<trans-unit id="flexform.queryResult" xml:space="preserve">
 				<source>Display the result of a query "SELECT {selectClause} FROM {fromClause} WHERE 1 AND {filterWhereClause}"</source>
 				<target>Affiche le résultat de la requête "SELECT {selectClause} FROM {fromClause} WHERE 1 AND {filterWhereClause}</target>				
-			</trans-unit>					
+			</trans-unit>	
+			<trans-unit id="flexform.queryResultMvc" xml:space="preserve">
+				<source>Display the given fields for the given model when a filter is applied</source>
+				<target>Affiche les champs fournis, pour le modèle donné, quand un filtre est appliqué</target>				
+			</trans-unit>							
 			<trans-unit id="flexform.searchBox" xml:space="preserve">
 				<source>Add a search box</source>
 				<target>Ajouter une boîte de recherche</target>				
@@ -254,7 +286,6 @@ Ce lien n'est valide que pour cette demande.
 				<source>SAV Filters</source>
 				<target>SAV Filters</target>
 			</trans-unit>	
-
 		</body>
 	</file>
 </xliff>

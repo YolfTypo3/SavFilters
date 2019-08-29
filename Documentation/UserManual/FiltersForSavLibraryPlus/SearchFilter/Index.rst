@@ -1,6 +1,6 @@
-.. include:: ../../Includes.txt
+.. include:: ../../../Includes.txt
 
-.. _searchFilter:
+.. _savLibraryPlus.searchFilter:
 
 =============
 Search Filter
@@ -11,7 +11,7 @@ a given input in database fields. The flexform configuration contains
 one field in which the list of comma-separated database fields are input 
 
 
-.. figure:: ../../Images/SearchFilterInBackEnd.png
+.. figure:: ../../../Images/SavLibraryPlusSearchFilterInBackEnd.png
    :alt: Search filter
 
 .. important::

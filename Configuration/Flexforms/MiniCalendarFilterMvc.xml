@@ -1,0 +1,46 @@
+<T3DataStructure>
+	<ROOT>
+		<TCEforms>
+			<sheetTitle>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.type.5</sheetTitle>
+		</TCEforms>
+		<type>array</type>
+		<displayCond>
+			<AND>
+				<numIndex index="0">FIELD:sDEF.settings.flexform.libraryType:=:1</numIndex>
+			 	<numIndex index="1">FIELD:sDEF.settings.flexform.type:=:5</numIndex>
+			</AND>
+		</displayCond>
+		<el>
+        	<settings.flexform.miniCalendarFilterMvc.modelClassName>
+            	<TCEforms>
+                	<exclude>0</exclude>
+                	<label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.modelClassName</label>
+                    <config>
+                        <type>input</type>
+                        <size>30</size>
+                    </config>
+                </TCEforms>
+            </settings.flexform.miniCalendarFilterMvc.modelClassName>
+            <settings.flexform.miniCalendarFilterMvc.fieldNameForDate>
+                <TCEforms>
+                    <exclude>0</exclude>
+                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.fieldNameForDate</label>
+                    <config>
+                        <type>input</type>
+                        <size>30</size>
+                    </config>
+                </TCEforms>
+            </settings.flexform.miniCalendarFilterMvc.fieldNameForDate>                    
+            <settings.flexform.miniCalendarFilterMvc.fieldNameForTitle>
+                <TCEforms>
+                	<exclude>0</exclude>
+                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.fieldNameForTitle</label>
+                    <config>
+                    	<type>input</type>
+                        <size>30</size>
+                    </config>
+                </TCEforms>
+            </settings.flexform.miniCalendarFilterMvc.fieldNameForTitle>   					
+		</el>
+	</ROOT>
+</T3DataStructure>			

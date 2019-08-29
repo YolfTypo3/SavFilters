@@ -10,10 +10,12 @@ What Does it Do?
 ================
 
 This extension provides filters for extensions built with the SAV Library
-Kickstarter (see extension `sav\_library\_kickstarter <http://typo3.or
-g/extensions/repository/view/sav_library_kickstarter>`_ and
-`sav\_library\_plus
-<http://typo3.org/extensions/repository/view/sav_library_plus>`_ ).
+Kickstarter (see extension `sav_library_kickstarter <http://typo3.or
+g/extensions/repository/view/sav_library_kickstarter>`_, 
+`sav_library_plus
+<http://typo3.org/extensions/repository/view/sav_library_plus>`_  and 
+`sav_library_mvc
+<http://typo3.org/extensions/repository/view/sav_library_mvc>`_ ).
 
 This extension replaces the following deprecated extensions:
 

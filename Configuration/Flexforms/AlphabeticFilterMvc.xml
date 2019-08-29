@@ -1,0 +1,46 @@
+<T3DataStructure>
+	<ROOT>
+		<TCEforms>
+			<sheetTitle>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.type.1</sheetTitle>
+		</TCEforms>
+		<type>array</type>
+		<displayCond>
+			<AND>
+				<numIndex index="0">FIELD:sDEF.settings.flexform.libraryType:=:1</numIndex>
+			 	<numIndex index="1">FIELD:sDEF.settings.flexform.type:=:1</numIndex>
+			</AND>
+		</displayCond>
+		<el>
+            <settings.flexform.alphabeticFilterMvc.modelClassName>
+                <TCEforms>
+                    <exclude>0</exclude>
+                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.modelClassName</label>
+                    <config>
+                        <type>input</type>
+                        <size>30</size>
+                    </config>
+                </TCEforms>
+            </settings.flexform.alphabeticFilterMvc.modelClassName>
+            <settings.flexform.alphabeticFilterMvc.fieldName>
+                <TCEforms>
+                    <exclude>0</exclude>
+                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.fieldName</label>
+                    <config>
+                        <type>input</type>
+                        <size>30</size>
+                    </config>
+                </TCEforms>
+            </settings.flexform.alphabeticFilterMvc.fieldName>                    
+            <settings.flexform.alphabeticFilterMvc.searchFields>
+                <TCEforms>
+                    <exclude>0</exclude>
+                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.searchFields</label>
+                    <config>
+                        <type>input</type>
+                       <size>30</size>
+                    </config>
+                </TCEforms>
+            </settings.flexform.alphabeticFilterMvc.searchFields>    					
+		</el>
+	</ROOT>
+</T3DataStructure>			

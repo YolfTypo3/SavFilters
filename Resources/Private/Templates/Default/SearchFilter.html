@@ -4,8 +4,10 @@
 	<ul>
 		<li class="searchBox"><f:form extensionName="savfilters"
 				pluginName="default">
-				<f:form.hidden name="cid" value="{cid}" />				
-					<f:form.textfield name="searchSearchFilter" placeholder="{f:translate(key:'form.searchBox.placeholder')}" value="{searchSearchFilter}" /> 
+				<f:form.hidden name="cid" value="{cid}" />
+				<f:form.textfield name="searchSearchFilter"
+					placeholder="{f:translate(key:'form.searchBox.placeholder')}"
+					value="{searchSearchFilter}" />
 				<f:render partial="SubmitButton.html" arguments="{_all}" />
 			</f:form></li>
 	</ul>

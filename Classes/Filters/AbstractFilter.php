@@ -39,7 +39,7 @@ abstract class AbstractFilter
     protected $controller;
 
     /**
-     * The extension key with the content Id
+     * The extension key with the content Uid
      *
      * @var string
      */
@@ -169,12 +169,12 @@ abstract class AbstractFilter
         $this->extensionKeyWithUid = $extensionKey . '_' . $this->contentUid;
 
         // Sets the pageId
-        if ($this->sessionFilter[$this->extensionKeyWithUid]['pageID'] != $this->getTypoScriptFrontendController()->id && $this->sessionFilterSelected == $this->extensionKeyWithUid) {
+        if ($this->sessionFilter[$this->extensionKeyWithUid]['pageId'] != $this->getTypoScriptFrontendController()->id && $this->sessionFilterSelected == $this->extensionKeyWithUid) {
             unset($this->sessionFilterSelected);
             unset($this->selectedFilterName);
         }
-        $this->sessionFilter[$this->extensionKeyWithUid]['pageID'] = $this->getTypoScriptFrontendController()->id;
-        $this->sessionFilter[$this->extensionKeyWithUid]['contentID'] = $this->contentUid;
+        $this->sessionFilter[$this->extensionKeyWithUid]['pageId'] = $this->getTypoScriptFrontendController()->id;
+        $this->sessionFilter[$this->extensionKeyWithUid]['contentUid'] = $this->contentUid;
         $this->sessionFilter[$this->extensionKeyWithUid]['tstamp'] = time();
 
         // Recovers the http variable from the session
@@ -393,8 +393,7 @@ abstract class AbstractFilter
     /**
      * Builds the filter WHERE clause
      *
-     * @param
-     *            string whereClause
+     * @param string $whereClause
      * @return string
      */
     protected function buildFilterWhereClause($whereClause)

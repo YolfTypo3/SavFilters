@@ -6,12 +6,12 @@
 		<type>array</type>
 		<displayCond>
 			<AND>
-				<numIndex index="0">FIELD:sDEF.settings.flexform.libraryType:=:0</numIndex>
+				<numIndex index="0">FIELD:sDEF.settings.flexform.libraryType:=:1</numIndex>
 			 	<numIndex index="1">FIELD:sDEF.settings.flexform.type:=:7</numIndex>
 			</AND>
 		</displayCond>
 		<el>
-			<settings.flexform.debugFilter.sessionFilter>
+			<settings.flexform.debugFilterMvc.sessionFilter>
 				<TCEforms>
 					<label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.sessionFilter</label>
 					<config>
@@ -19,34 +19,34 @@
 						<default>1</default>
 					</config>
 				</TCEforms>
-			</settings.flexform.debugFilter.sessionFilter>
-			<settings.flexform.debugFilter.queryResult>
+			</settings.flexform.debugFilterMvc.sessionFilter>
+			<settings.flexform.debugFilterMvc.queryResult>
 				<TCEforms>
-					<label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.queryResult</label>
+					<label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.queryResultMvc</label>
 					<config>
 						<type>check</type>
 						<default>0</default>
 					</config>
 				</TCEforms>
-			</settings.flexform.debugFilter.queryResult>
-			<settings.flexform.debugFilter.selectClause>
+			</settings.flexform.debugFilterMvc.queryResult>
+			<settings.flexform.debugFilterMvc.modelClassName>
 				<TCEforms>
-					<label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.selectClause</label>
+					<label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.modelClassName</label>
 					<config>
 						<type>input</type>
 						<size>50</size>
 					</config>							
 				</TCEforms>
-			</settings.flexform.debugFilter.selectClause>			
-			<settings.flexform.debugFilter.fromClause>
+			</settings.flexform.debugFilterMvc.modelClassName>			
+			<settings.flexform.debugFilterMvc.fieldsName>
 				<TCEforms>
-					<label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.fromClause</label>
+					<label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.fieldsName</label>
 					<config>
 						<type>input</type>
 						<size>50</size>
 					</config>							
 				</TCEforms>
-			</settings.flexform.debugFilter.fromClause>											
+			</settings.flexform.debugFilterMvc.fieldsName>											
 		</el>
 	</ROOT>
 </T3DataStructure>			

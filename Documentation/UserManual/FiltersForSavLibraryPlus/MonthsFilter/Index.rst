@@ -1,6 +1,6 @@
-.. include:: ../../Includes.txt
+.. include:: ../../../Includes.txt
 
-.. _monthsFilter:
+.. _savLibraryPlus.monthsFilter:
 
 =============
 Months Filter
@@ -9,7 +9,7 @@ Months Filter
 The fields for the query part of the months filter are the same as in the alphabetic filter.
 In the following example, the query returns the months where frontend users were created. 
 
-.. figure:: ../../Images/MonthsFilterQueryInBackEnd.png
+.. figure:: ../../../Images/SavLibraryPlusMonthsFilterQueryInBackEnd.png
    :alt: Query for the months filter
   
 In the **WHERE** clause the variables **{backwardMonths}** and **{forwardMonths}**
@@ -21,5 +21,5 @@ are replaced by the configuration values in the flexform (see below).
 
 A search box can also be added to the months filter.
 
-.. figure:: ../../Images/MonthsFilterSearchBoxInBackEnd.png
+.. figure:: ../../../Images/SavLibraryPlusMonthsFilterSearchBoxInBackEnd.png
    :alt: Months filter search box 
