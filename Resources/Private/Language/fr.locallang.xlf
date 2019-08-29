@@ -81,7 +81,7 @@ Ce lien n'est valide que pour cette demande.
             </trans-unit>  
             <trans-unit id="error.unknownMethod" xml:space="preserve">
                 <source>Check if the method %s is in the model.</source>
-                <target>Vérifier si la méthode %s est dans le modèle.</source>
+                <target>Vérifier si la méthode %s est dans le modèle.</target>
             </trans-unit>                				
 			<trans-unit id="flexform.additionalFilterWhereClause" xml:space="preserve">
 				<source>Additional WHERE clause to be added by the filter</source>
