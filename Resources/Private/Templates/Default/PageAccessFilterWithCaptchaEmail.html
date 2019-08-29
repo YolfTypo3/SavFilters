@@ -16,6 +16,7 @@
 					</div>
 				</f:then>
 				<f:else>
+					<f:if condition="{srFreecapLoaded}">
 					<div class="freecap">
 						<freeCap:image />
 						<label for="sjbr-freecap-captcha-response" class="above">{freeCap:translate(key:
@@ -27,6 +28,7 @@
 							title="{f:translate(key:'form.submit')}">{f:translate(key:'form.submit')}</f:form.button>
 					</div>
 					<freeCap:audio />
+					</f:if>
 				</f:else>
 			</f:if>
 		</f:form>

@@ -55,6 +55,9 @@ This link is valid only for one request.
 			<trans-unit id="error.parameterMustBeginByPostOrGet" xml:space="preserve">
 				<source>The parameter %s must begin by "post" or "get".</source>
 			</trans-unit>	
+		    <trans-unit id="error.srFreecapMustBeLoaded" xml:space="preserve">
+                <source>The extension sr_freecap must be loaded to use this option.</source>
+            </trans-unit>    			
 		    <trans-unit id="error.typeMustBe" xml:space="preserve">
                 <source>The type of the field "%s" must be %s.</source>
             </trans-unit>                    

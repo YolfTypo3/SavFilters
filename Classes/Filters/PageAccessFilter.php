@@ -305,6 +305,7 @@ class PageAccessFilter extends AbstractFilter
             }
         } else {
             if (ExtensionManagementUtility::isLoaded('sr_freecap')) {
+                $this->controller->getView()->assign('srFreecapLoaded', true);
                 $captchaValidator = GeneralUtility::makeInstance(\SJBR\SrFreecap\Validation\Validator\CaptchaValidator::class);
                 $validationResult = $captchaValidator->Validate($this->httpVariables['captchaResponse']);
 
@@ -316,7 +317,8 @@ class PageAccessFilter extends AbstractFilter
                     }
                 }
             } else {
-                throw new Exception('The extension sr_freecap must be loaded to use this option.');
+                $this->controller->getView()->assign('srFreecapLoaded', false);
+                DefaultController::addError('error.srFreecapMustBeLoaded');
             }
         }
     }
