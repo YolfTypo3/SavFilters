@@ -210,6 +210,7 @@ class PageAccessFilter extends AbstractFilter
         $securityField = $this->controller->getFilterSetting('securityField');
         $securityTable = $this->controller->getFilterSetting('securityTable');
         $key = $this->controller->getFilterSetting('key');
+
         if (empty($securityField) || empty($securityTable) || empty($key)) {
             throw new Exception('The key, the security field and the security table must not be empty');
         }
@@ -254,7 +255,7 @@ class PageAccessFilter extends AbstractFilter
                 // Creates the connection and inserts the values
                 $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($securityTable);
                 $connection->insert($securityTable, $values);
-                $uid = (int) $connection->lastInsertId($securityTable);
+                $uid = $connection->lastInsertId($securityTable);
 
                 // Prepares the email
                 $arguments = [

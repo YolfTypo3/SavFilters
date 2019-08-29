@@ -388,4 +388,3 @@ class DefaultController extends ActionController
     }
 }
 ?>
-

@@ -321,8 +321,6 @@ abstract class AbstractFilterMvc
      */
     protected function addErrorMessage($key, $arguments)
     {
-        debug($this->controller->getRequest()->getControllerExtensionName());
-        debug(LocalizationUtility::translate($key, $this->controller->getRequest()->getControllerExtensionName(), $arguments));
         $this->controller->addFlashMessage(LocalizationUtility::translate($key, $this->controller->getRequest()
             ->getControllerExtensionName(), $arguments));
     }

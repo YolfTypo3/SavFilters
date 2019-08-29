@@ -19,6 +19,8 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
  * Alphabetic filter
+ *
+ * @package sav_filters
  */
 class MiniCalendarFilterMvc extends AbstractFilterMvc
 {

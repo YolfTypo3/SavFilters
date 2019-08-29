@@ -20,6 +20,8 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
  * Selectors filter
+ *
+ * @package sav_filters
  */
 class SelectorsFilterMvc extends AbstractFilterMvc
 {

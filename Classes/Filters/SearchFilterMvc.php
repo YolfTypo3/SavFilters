@@ -17,6 +17,8 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
  * Search filter
+ *
+ * @package sav_filters
  */
 class SearchFilterMvc extends AbstractFilterMvc
 {

@@ -21,7 +21,7 @@ of the frontend users.
 The configuration folder contains also a field whose content is the **WHERE** 
 clause to be added by the filter. In the following example, the filter 
 will add a restriction to the selected letter. 
-The FLUID variable **selected** used in the template must be prepended by **get**. 
+The Fluid variable **selected** used in the template must be prepended by **get**. 
 
 .. figure:: ../../../Images/SavLibraryPlusAlphabeticFilterWhereClauseInBackEnd.png
   :alt: WHERE clause for the alphabetic filter

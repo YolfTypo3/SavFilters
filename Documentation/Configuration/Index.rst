@@ -14,7 +14,7 @@ Special configurations are also possible in TypoScript.
 Configuration of the Templates, Partials, Layouts Root Paths
 ============================================================
 
-Each filter is defined by means of a default FLUID template in the 
+Each filter is defined by means of a default Fluid template in the 
 extension folder **Resources/Private/Default**. 
 The default root paths can be changed by modifying the following 
 **constants** in TypoScript.
