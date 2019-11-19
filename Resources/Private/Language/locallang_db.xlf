@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 
 <xliff version="1.0">
-    <file source-language="en" datatype="plaintext" original="messages" date="2019-08-09T11:46:21Z" product-name="sav_filters">
+    <file source-language="en" datatype="plaintext" original="messages" date="2019-11-18T14:33:12Z" product-name="sav_filters">
         <header/>
         <body>
             <trans-unit id="tt_content.list_type_pi1" xml:space="preserve">
