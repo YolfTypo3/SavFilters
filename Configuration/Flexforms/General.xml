@@ -11,6 +11,7 @@
 					<label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.libraryType</label>
 					<config>
 						<type>select</type>
+						<renderType>selectSingle</renderType>
 						<items>
 							<numIndex index="0" type="array">
 								<numIndex index="0">LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.libraryType.0</numIndex>
@@ -32,6 +33,7 @@
 					<label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.type</label>
 					<config>
 						<type>select</type>
+						<renderType>selectSingle</renderType>						
 						<items>
 							<numIndex index="0" type="array">
 								<numIndex index="0">---</numIndex>
@@ -76,6 +78,7 @@
 					<label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.extensionWhereClauseAction</label>													
 					<config>
 						<type>select</type>
+						<renderType>selectSingle</renderType>						
 						<items>
 							<numIndex index="0" type="array">
 								<numIndex index="0">LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.extensionWhereClauseAction.keep</numIndex>

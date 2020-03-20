@@ -18,7 +18,6 @@ use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
-use TYPO3\CMS\Frontend\Page\PageRepository;
 use YolfTypo3\SavFilters\Controller\DefaultController;
 
 /**
@@ -440,15 +439,5 @@ abstract class AbstractFilter
         return $GLOBALS['TSFE'];
     }
 
-    /**
-     * Gets the Page Repository
-     *
-     * @return PageRepository
-     */
-    protected function getPageRepository(): PageRepository
-    {
-        $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
-        return $pageRepository;
-    }
 }
 ?>

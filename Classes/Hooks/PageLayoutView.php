@@ -13,8 +13,8 @@ namespace YolfTypo3\SavFilters\Hooks;
  *
  * The TYPO3 project - inspiring people to share
  */
+use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Lang\LanguageService;
 
 /**
  * Hook to display verbose information about default plugin in Web>Page module
