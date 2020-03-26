@@ -4,14 +4,17 @@
 	<div class="miniCalendarContainer">
 
 		<div class="monthHeader">
-			<f:link.action arguments="{cid:cid,month:month.backward}"
+			<f:link.action extensionName="savfilters" pluginName="default"
+				arguments="{cid:cid,month:month.backward}"
 				title="{f:translate(key:'button.previousMonth')}">
 				<f:image class="leftArrow"
 					src="EXT:sav_filters/Resources/Public/Icons/leftArrow.gif" />
 			</f:link.action>
-			<f:link.action arguments="{cid:cid,month:month.current}"
+			<f:link.action extensionName="savfilters" pluginName="default"
+				arguments="{cid:cid,month:month.current}"
 				title="{f:translate(key:'button.currentMonth')}" class="month">{currentMonthHeader}</f:link.action>
-			<f:link.action arguments="{cid:cid,month:month.forward}"
+			<f:link.action extensionName="savfilters" pluginName="default"
+				arguments="{cid:cid,month:month.forward}"
 				title="{f:translate(key:'button.nextMonth')}">
 				<f:image class="rightArrow"
 					src="EXT:sav_filters/Resources/Public/Icons/rightArrow.gif" />
@@ -34,6 +37,7 @@
 				<f:if condition="{value.active}">
 					<f:then>
 						<li class="{value.class}"><f:link.action
+								extensionName="savfilters" pluginName="default"
 								arguments="{cid:cid,selected:value.active,month:month.active}"
 								class="{f:if(condition:'{selected}=={value.label}',then:'selected')}"
 								title="{value.title}">{value.label}</f:link.action></li>

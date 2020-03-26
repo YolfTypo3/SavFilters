@@ -5,7 +5,8 @@
 		<f:for each="{values}" key="key" as="value">
 			<f:if condition="{value.active}">
 				<f:then>
-					<li><f:link.action arguments="{cid:cid,selected:value.active}"
+					<li><f:link.action extensionName="savfilters"
+							pluginName="default" arguments="{cid:cid,selected:value.active}"
 							class="{f:if(condition:'{filterContext.selected}=={value.active}',then:'selected')}">{value.label}</f:link.action></li>
 				</f:then>
 				<f:else>
@@ -13,17 +14,19 @@
 				</f:else>
 			</f:if>
 		</f:for>
-		<li><f:link.action arguments="{cid:cid,selected:'all'}"
+		<li><f:link.action extensionName="savfilters"
+				pluginName="default" arguments="{cid:cid,selected:'all'}"
 				class="{f:if(condition:'{filterContext.selected}==\'all\'',then:'selected')}">
-				<f:translate
-					key="all" />
+				<f:translate key="all" />
 			</f:link.action></li>
 
 		<f:if condition="{addSearchBox}">
 			<li class="searchBox"><f:form extensionName="savfilters"
 					pluginName="default">
-					<f:form.hidden name="cid" value="{cid}" />					
-					<f:form.textfield name="searchMonthsFilter" placeholder="{f:translate(key:'form.searchBox.placeholder')}" value="{searchMonthsFilter}" /> 
+					<f:form.hidden name="cid" value="{cid}" />
+					<f:form.textfield name="searchMonthsFilter"
+						placeholder="{f:translate(key:'form.searchBox.placeholder')}"
+						value="{searchMonthsFilter}" />
 					<f:render partial="SubmitButton.html" arguments="{_all}" />
 				</f:form></li>
 		</f:if>
