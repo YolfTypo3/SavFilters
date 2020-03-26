@@ -386,5 +386,23 @@ class DefaultController extends ActionController
         }
         return $extensionWebPath;
     }
+
+    /**
+     * Gets the TYPO3 version
+     *
+     * @todo Will be removed in TYPO3 11
+     *
+     * @return string
+     */
+    public static function getTypo3Version()
+    {
+        if (class_exists(\TYPO3\CMS\Core\Information\Typo3Version::class)) {
+            $typo3Version = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class)->getVersion();
+        } else {
+            // @extensionScannerIgnoreLine
+            $typo3Version = TYPO3_version;
+        }
+        return $typo3Version;
+    }
 }
 ?>
