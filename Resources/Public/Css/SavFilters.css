@@ -57,6 +57,7 @@
 	border: 1px #000099 solid;	
 	list-style: none;
 	padding: 2px;
+	flex-wrap: wrap;	
 }
 .savFilters .container ul li {
 	display: inline-block;
