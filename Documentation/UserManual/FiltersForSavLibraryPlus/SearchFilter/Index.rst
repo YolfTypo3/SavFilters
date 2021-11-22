@@ -17,11 +17,11 @@ one field in which the list of comma-separated database fields are input.
 .. important::
   
    In specific cases you may want to associate functions with a field like, 
-   for example, **CONCAT**. In such a case, if you need to use commas in the 
-   function, please escape them with an **\\**. 
+   for example, ``CONCAT``. In such a case, if you need to use commas in the 
+   function, please escape them with an ``\\``. 
 	
    The following example should be used to search in the field 
-   **last_name** of the table **fe_users** and in the concatenation 
+   ``last_name`` of the table ``fe_users`` and in the concatenation 
    of the first name and the last name in the same table.
 	
    .. code::

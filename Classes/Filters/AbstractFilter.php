@@ -1,5 +1,4 @@
 <?php
-namespace YolfTypo3\SavFilters\Filters;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -13,10 +12,14 @@ namespace YolfTypo3\SavFilters\Filters;
  *
  * The TYPO3 project - inspiring people to share!
  */
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+namespace YolfTypo3\SavFilters\Filters;
+
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use YolfTypo3\SavFilters\Controller\DefaultController;
 
@@ -155,24 +158,24 @@ abstract class AbstractFilter
     protected function filterInitialisation()
     {
         // Gets the session variables
-        $this->sessionFilter = $this->getTypoScriptFrontendController()->fe_user->getKey('ses', 'filters');
-        $this->sessionFilterSelected = $this->getTypoScriptFrontendController()->fe_user->getKey('ses', 'selectedFilterKey');
-        $this->selectedFilterName = $this->getTypoScriptFrontendController()->fe_user->getKey('ses', 'selectedFilterName');
+        $this->sessionFilter = $this->getDataFromSession('filters');
+        $this->sessionFilterSelected = $this->getDataFromSession('selectedFilterKey');
+        $this->selectedFilterName = $this->getDataFromSession('selectedFilterName');
 
         // Gets the http variables
         $this->httpVariables = $this->controller->getRequest()->getArguments();
 
         // Creates an extension key with the content uid
         $extensionKey = $this->controller->getRequest()->getControllerExtensionKey();
-        $this->contentUid = $this->controller->getConfigurationManager()->getContentObject()->data['uid'];
+        $this->contentUid = $this->getContentUid();
         $this->extensionKeyWithUid = $extensionKey . '_' . $this->contentUid;
 
         // Sets the pageId
-        if ($this->sessionFilter[$this->extensionKeyWithUid]['pageId'] != $this->getTypoScriptFrontendController()->id && $this->sessionFilterSelected == $this->extensionKeyWithUid) {
+        if ($this->sessionFilter[$this->extensionKeyWithUid]['pageId'] != $this->getPageId() && $this->sessionFilterSelected == $this->extensionKeyWithUid) {
             unset($this->sessionFilterSelected);
             unset($this->selectedFilterName);
         }
-        $this->sessionFilter[$this->extensionKeyWithUid]['pageId'] = $this->getTypoScriptFrontendController()->id;
+        $this->sessionFilter[$this->extensionKeyWithUid]['pageId'] = $this->getPageId();
         $this->sessionFilter[$this->extensionKeyWithUid]['contentUid'] = $this->contentUid;
         $this->sessionFilter[$this->extensionKeyWithUid]['tstamp'] = time();
 
@@ -207,8 +210,8 @@ abstract class AbstractFilter
             if (($this->httpVariables['cid'] == $this->contentUid) || $this->forceSetSessionFields) {
                 $this->sessionFilterSelected = $this->extensionKeyWithUid;
                 $this->selectedFilterName = basename(get_class($this));
-                $this->getTypoScriptFrontendController()->fe_user->setKey('ses', 'selectedFilterKey', $this->sessionFilterSelected);
-                $this->getTypoScriptFrontendController()->fe_user->setKey('ses', 'selectedFilterName', $this->selectedFilterName);
+                $this->setDataToSession('selectedFilterKey', $this->sessionFilterSelected);
+                $this->setDataToSession('selectedFilterName', $this->selectedFilterName);
             }
 
             // Adds the http variables in the session filter
@@ -216,8 +219,9 @@ abstract class AbstractFilter
         }
 
         // Sets session data
-        $this->getTypoScriptFrontendController()->fe_user->setKey('ses', 'filters', $this->sessionFilter);
-        $this->getTypoScriptFrontendController()->fe_user->storeSessionData();
+        $this->setDataToSession('filters', $this->sessionFilter);
+        $this->storeDataInSession();
+
     }
 
     /**
@@ -439,5 +443,82 @@ abstract class AbstractFilter
         return $GLOBALS['TSFE'];
     }
 
+    /**
+     * Gets user session
+     *
+     * @return FrontendUserAuthentication
+     */
+    protected function getFrontendUser(): FrontendUserAuthentication
+    {
+        return $this->getTypoScriptFrontendController()->fe_user;
+    }
+
+    /**
+     * Gets the page id
+     *
+     * @return integer
+     */
+    protected function getPageId()
+    {
+        // @extensionScannerIgnoreLine
+        return $this->getTypoScriptFrontendController()->id;
+    }
+
+    /**
+     * Gets the controller content object
+     *
+     * @return integer
+     */
+    protected function getControllerContentObject()
+    {
+        // @extensionScannerIgnoreLine
+        return $this->controller->getConfigurationManager()->getContentObject();
+    }
+
+    /**
+     * Gets the content uid
+     *
+     * @return integer
+     */
+    protected function getContentUid()
+    {
+        return $this->getControllerContentObject()->data['uid'];
+    }
+
+    /**
+     * Gets data from session
+     *
+     * @param string $key
+     * @return array
+     */
+    protected function getDataFromSession($key)
+    {
+        $frontEndUser = $this->getTypoScriptFrontendController()->fe_user;
+        return $frontEndUser->getKey('ses', $key);
+    }
+
+    /**
+     * Sets data to session
+     *
+     * @param string $key
+     * @param array $value
+     * @return void
+     */
+    protected function setDataToSession($key, $value)
+    {
+        $frontEndUser = $this->getTypoScriptFrontendController()->fe_user;
+        $frontEndUser->setKey('ses', $key, $value);
+    }
+
+    /**
+     * Stores the data in session
+     *
+     * @return array
+     */
+    protected function storeDataInSession()
+    {
+        $frontEndUser = $this->getTypoScriptFrontendController()->fe_user;
+        // @extensionScannerIgnoreLine
+        $frontEndUser->storeSessionData();
+    }
 }
-?>

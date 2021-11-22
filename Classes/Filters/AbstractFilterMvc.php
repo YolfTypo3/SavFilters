@@ -1,5 +1,4 @@
 <?php
-namespace YolfTypo3\SavFilters\Filters;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -13,10 +12,14 @@ namespace YolfTypo3\SavFilters\Filters;
  *
  * The TYPO3 project - inspiring people to share
  */
+
+namespace YolfTypo3\SavFilters\Filters;
+
+use TYPO3\CMS\Core\Information\Typo3Version;
+use TYPO3\CMS\Core\Utility\ClassNamingUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Mvc\Controller\Arguments;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\Repository;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use YolfTypo3\SavFilters\Controller\DefaultController;
@@ -28,7 +31,6 @@ use YolfTypo3\SavFilters\Controller\DefaultController;
  */
 abstract class AbstractFilterMvc
 {
-
     /**
      * True if the filter is selected
      *
@@ -72,29 +74,10 @@ abstract class AbstractFilterMvc
     protected static $extensionKeyWithUid;
 
     /**
-     * The object manager
-     *
-     * @var ObjectManagerInterface
-     */
-    protected $objectManager;
-
-    /**
      *
      * @var boolean
      */
     protected static $keepWhereClause = true;
-
-    /**
-     * Injects the object manager
-     *
-     * @param ObjectManagerInterface $objectManager
-     * @return void
-     */
-    public function injectObjectManager(ObjectManagerInterface $objectManager)
-    {
-        $this->objectManager = $objectManager;
-        $this->arguments = $this->objectManager->get(Arguments::class);
-    }
 
     /**
      * Injects the controller
@@ -116,7 +99,7 @@ abstract class AbstractFilterMvc
     {
         // Creates an extension key with the content uid
         $extensionKey = $this->controller->getRequest()->getControllerExtensionKey();
-        self::$contentUid = $this->controller->getConfigurationManager()->getContentObject()->data['uid'];
+        self::$contentUid = $this->getContentUid();
         self::$extensionKeyWithUid = $extensionKey . '_' . self::$contentUid;
 
         // Removes the selected filter key if there is no parameter
@@ -134,6 +117,26 @@ abstract class AbstractFilterMvc
         // Renders the filter
         $this->renderFilter();
         self::setFilterContextInSession();
+    }
+
+    /**
+     * Gets the repository
+     *
+     * @param string $modelClassName
+     * @return Repository
+     */
+    protected function getRepository($modelClassName)
+    {
+        $repositoryClassName = ClassNamingUtility::translateModelNameToRepositoryName($modelClassName);
+        $typo3Version = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(Typo3Version::class);
+        if (version_compare($typo3Version->getVersion(), '10.0', '<')) {
+            $objectManager = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class);
+            $repository = $objectManager->get($repositoryClassName);
+        } else {
+            $repository = GeneralUtility::makeInstance($repositoryClassName);
+        }
+
+        return $repository;
     }
 
     /**
@@ -187,17 +190,6 @@ abstract class AbstractFilterMvc
     }
 
     /**
-     * Gets a variable from the session
-     *
-     * @param string $variableName
-     * @return void
-     */
-    protected static function getVariableFromSession($variableName)
-    {
-        return self::getTypoScriptFrontendController()->fe_user->getKey('ses', $variableName);
-    }
-
-    /**
      * Gets the filter context
      *
      * @return array
@@ -244,8 +236,8 @@ abstract class AbstractFilterMvc
     protected static function getFilterContextFromSession()
     {
         // Gets the session variables
-        $sessionFilters = self::getVariableFromSession('filters');
-        $selectedFilterKey = self::getVariableFromSession('selectedFilterKey');
+        $sessionFilters = self::getDataFromSession('filters');
+        $selectedFilterKey = self::getDataFromSession('selectedFilterKey');
 
         $filterClassName = self::getFilterClassName();
         if ($sessionFilters[$selectedFilterKey]['Mvc']['pageId'] != self::getPageId() || $sessionFilters[$selectedFilterKey]['Mvc']['filterClassName'] != $filterClassName) {
@@ -263,8 +255,8 @@ abstract class AbstractFilterMvc
     protected static function getFilterSettingsFromSession()
     {
         // Gets the session variables
-        $sessionFilters = self::getVariableFromSession('filters');
-        $selectedFilterKey = self::getVariableFromSession('selectedFilterKey');
+        $sessionFilters = self::getDataFromSession('filters');
+        $selectedFilterKey = self::getDataFromSession('selectedFilterKey');
 
         $filterClassName = self::getFilterClassName();
         if ($sessionFilters[$selectedFilterKey]['Mvc']['pageId'] != self::getPageId() || $sessionFilters[$selectedFilterKey]['Mvc']['filterClassName'] != $filterClassName) {
@@ -283,7 +275,7 @@ abstract class AbstractFilterMvc
     protected static function setFilterContextInSession()
     {
         if (self::$filterIsSelected) {
-            $sessionFilters = self::getVariableFromSession('filters');
+            $sessionFilters = self::getDataFromSession('filters');
             $sessionFilters[self::$extensionKeyWithUid]['Mvc'] = [
                 'filterClassName' => self::getFilterClassName(),
                 'pageId' => self::getPageId(),
@@ -292,9 +284,9 @@ abstract class AbstractFilterMvc
             ];
 
             // Sets session data
-            self::getTypoScriptFrontendController()->fe_user->setKey('ses', 'selectedFilterKey', self::$extensionKeyWithUid);
-            self::getTypoScriptFrontendController()->fe_user->setKey('ses', 'filters', $sessionFilters);
-            self::getTypoScriptFrontendController()->fe_user->storeSessionData();
+            self::setDataToSession('selectedFilterKey', self::$extensionKeyWithUid);
+            self::setDataToSession('filters', $sessionFilters);
+            self::storeDataInSession();
         }
     }
 
@@ -352,7 +344,19 @@ abstract class AbstractFilterMvc
      */
     protected static function getPageId()
     {
+        // @extensionScannerIgnoreLine
         return self::getTypoScriptFrontendController()->id;
+    }
+
+    /**
+     * Gets the content uid
+     *
+     * @return integer
+     */
+    protected function getContentUid()
+    {
+        // @extensionScannerIgnoreLine
+        return $this->controller->getConfigurationManager()->getContentObject()->data['uid'];
     }
 
     /**
@@ -367,5 +371,41 @@ abstract class AbstractFilterMvc
         $tableName = 'tx_' . strtolower(str_replace('\\', '_', substr($modelClassName, strpos($modelClassName, '\\') + 1)));
         return $tableName;
     }
+
+    /**
+     * Gets data from session
+     *
+     * @param string $key
+     * @return array
+     */
+    protected static function getDataFromSession($key)
+    {
+        $frontEndUser = self::getTypoScriptFrontendController()->fe_user;
+        return $frontEndUser->getKey('ses', $key);
+    }
+
+    /**
+     * Sets data to session
+     *
+     * @param string $key
+     * @param array $value
+     * @return void
+     */
+    protected static function setDataToSession($key, $value)
+    {
+        $frontEndUser = self::getTypoScriptFrontendController()->fe_user;
+        $frontEndUser->setKey('ses', $key, $value);
+    }
+
+    /**
+     * Stores the data in session
+     *
+     * @return array
+     */
+    protected static function storeDataInSession()
+    {
+        $frontEndUser = self::getTypoScriptFrontendController()->fe_user;
+        // @extensionScannerIgnoreLine
+        $frontEndUser->storeSessionData();
+    }
 }
-?>

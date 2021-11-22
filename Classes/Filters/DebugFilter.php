@@ -1,5 +1,4 @@
 <?php
-namespace YolfTypo3\SavFilters\Filters;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -13,6 +12,8 @@ namespace YolfTypo3\SavFilters\Filters;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+namespace YolfTypo3\SavFilters\Filters;
 
 /**
  * Debug filter
@@ -71,4 +72,3 @@ class DebugFilter extends AbstractFilter
         $this->controller->getView()->assign('sessionSelectedFilter', $this->sessionFilter[$selectedFilterKey]);
     }
 }
-?>

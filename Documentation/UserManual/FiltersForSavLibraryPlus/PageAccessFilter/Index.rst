@@ -36,13 +36,13 @@ Access for Authenticated Users
    .. figure:: ../../../Images/SavLibraryPlusPageAccessFilterCheckAccessInBackEnd.png
       :alt: Create the access to a FE user
   
-#. Add an **Update Form** (see :ref:`Tutorial 7
+#. Add an ``Update Form`` (see :ref:`Tutorial 7
    <savlibraryplus:tutorial7>` in the SAV Library Plus documentation).
      
    .. figure:: ../../../Images/SavLibraryPlusPageAccessFilterAddUpdateFormInBackEnd.png
       :alt: Add an Update Form    
   
-   Clicking on the link created in 1. will open the **Update Form** for 
+   Clicking on the link created in 1. will open the ``Update Form`` for 
    the logged frontend user.
 
    .. figure:: ../../../Images/SavLibraryPlusPageAccessFilterCheckAccessInFrontEnd.png
@@ -53,7 +53,7 @@ Access by a Personnal Link Sent by Email
 
 .. important::
 	
-   The extension **sr_freecap** must be loaded to use this feature.
+   The extension ``sr_freecap`` must be loaded to use this feature.
 	
 #. Create the access in a page and fill the flexform with your parameter.
 
@@ -62,10 +62,10 @@ Access by a Personnal Link Sent by Email
   		
    .. important:: 
    
-      The **security table** must contain a field in which the email is saved.  
+      The ``security table`` must contain a field in which the email is saved.  
       This field is the security field.		
 
-#. Add an **Update Form** (see :ref:`Tutorial 7
+#. Add an ``Update Form`` (see :ref:`Tutorial 7
    <savlibraryplus:tutorial7>` in the SAV Library Plus documentation).
    
 #. Answer correctly to the captcha in the frontend and submit.
@@ -87,7 +87,7 @@ Access by a Personnal Link Sent by Email
    .. figure:: ../../../Images/SavLibraryPlusPageAccessFilterCreateEmailReceived.png
       :alt: Email recieved
  		
-#. Click on the link contained in the email and you should access to the **Update Form**.
+#. Click on the link contained in the email and you should access to the ``Update Form``.
 
    .. figure:: ../../../Images/SavLibraryPlusPageAccessFilterCreateCaptchaAndEmailInFrontEnd.png
       :alt: Access to the Update Form in the frontend

@@ -14,9 +14,9 @@ The user name is used as a title attribute for the links.
 .. figure:: ../../../Images/SavLibraryPlusMinicalendarFilterInBackEnd.png
    :alt: Configuration of the minicalendar filter
  
-The variable **{currentMonth}** is replaced by the current month represented 
-in the format **YYYY-MM**. The query **WHERE** clause
-retricts the records whose **crdate** is within the current month.
+The variable ``{currentMonth}`` is replaced by the current month represented 
+in the format ``YYYY-MM``. The query ``WHERE`` clause
+retricts the records whose ``crdate`` is within the current month.
 
 .. code::
 

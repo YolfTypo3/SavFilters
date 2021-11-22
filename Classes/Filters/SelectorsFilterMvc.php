@@ -1,5 +1,4 @@
 <?php
-namespace YolfTypo3\SavFilters\Filters;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -13,7 +12,9 @@ namespace YolfTypo3\SavFilters\Filters;
  *
  * The TYPO3 project - inspiring people to share
  */
-use TYPO3\CMS\Core\Utility\ClassNamingUtility;
+
+namespace YolfTypo3\SavFilters\Filters;
+
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Fluid\View\StandaloneView;
@@ -58,8 +59,7 @@ class SelectorsFilterMvc extends AbstractFilterMvc
             if (! empty($modelClassName)) {
 
                 // Gets the repository
-                $repositoryClassName = ClassNamingUtility::translateModelNameToRepositoryName($modelClassName);
-                $repository = $this->objectManager->get($repositoryClassName);
+                $repository = $this->getRepository($modelClassName);
 
                 // Gets the rows
                 $rows = $repository->findAll();
@@ -168,4 +168,3 @@ class SelectorsFilterMvc extends AbstractFilterMvc
         }
     }
 }
-?>

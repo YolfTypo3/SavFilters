@@ -1,5 +1,4 @@
 <?php
-namespace YolfTypo3\SavFilters\Filters;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -13,6 +12,9 @@ namespace YolfTypo3\SavFilters\Filters;
  *
  * The TYPO3 project - inspiring people to share
  */
+
+namespace YolfTypo3\SavFilters\Filters;
+
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
@@ -79,4 +81,3 @@ class SearchFilterMvc extends AbstractFilterMvc
         }
     }
 }
-?>

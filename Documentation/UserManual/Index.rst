@@ -21,19 +21,19 @@ Installation
 Configuration flexform
 ======================
 
-#. Select the library type and the filter type in the **General** folder.
+#. Select the library type and the filter type in the ``General`` folder.
 
-	.. figure:: ../Images/FilterTypeInBackEnd.png
-		:alt: Filter type in the configuration flexform
+   .. figure:: ../Images/FilterTypeInBackEnd.png
+      :alt: Filter type in the configuration flexform
   
 #. Extensions built with the SAV Library Kickstarter may have a specific 
-   **WHERE** clause for the list view.
-   Use the second selector to keep (default) or remove this **WHERE** clause. 
+   ``WHERE`` clause for the list view.
+   Use the second selector to keep (default) or remove this ``WHERE`` clause. 
 
-	- If you choose the **Keep** option, the filter will add, with a 
-	  **AND** operator, its own **WHERE** clause to the extension **WHERE** clause.
-	- If you chosse the **Remove** option, the **WHERE** clause of the filter 
-	  will replace the extension **WHERE** clause.
+   - If you choose the ``Keep`` option, the filter will add, with a 
+     ``AND`` operator, its own ``WHERE`` clause to the extension ``WHERE`` clause.
+   - If you chosse the ``Remove`` option, the ``WHERE`` clause of the filter 
+     will replace the extension ``WHERE`` clause.
 
 #. Use the third field to provide, if required, a specific CSS file for the filter. 
 

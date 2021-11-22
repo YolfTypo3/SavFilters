@@ -12,7 +12,7 @@ In the following example, the query returns the months where frontend users were
 .. figure:: ../../../Images/SavLibraryPlusMonthsFilterQueryInBackEnd.png
    :alt: Query for the months filter
   
-In the **WHERE** clause the variables **{backwardMonths}** and **{forwardMonths}**
+In the ``WHERE`` clause the variables ``{backwardMonths}`` and ``{forwardMonths}``
 are replaced by the configuration values in the flexform (see below).
   
 .. code::

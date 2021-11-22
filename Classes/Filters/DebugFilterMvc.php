@@ -1,5 +1,4 @@
 <?php
-namespace YolfTypo3\SavFilters\Filters;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -13,7 +12,9 @@ namespace YolfTypo3\SavFilters\Filters;
  *
  * The TYPO3 project - inspiring people to share!
  */
-use TYPO3\CMS\Core\Utility\ClassNamingUtility;
+
+namespace YolfTypo3\SavFilters\Filters;
+
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -48,8 +49,7 @@ class DebugFilterMvc extends AbstractFilterMvc
             if ($queryResult) {
 
                 // Gets the repository
-                $repositoryClassName = ClassNamingUtility::translateModelNameToRepositoryName($modelClassName);
-                $repository = $this->objectManager->get($repositoryClassName);
+                $repository = $this->getRepository($modelClassName);
 
                 // Gets the query and the filter contraints
                 $query = $repository->createQuery();
@@ -89,4 +89,3 @@ class DebugFilterMvc extends AbstractFilterMvc
         $this->controller->getView()->assign('sessionSelectedFilter', $sessionSelectedFilter);
     }
 }
-?>

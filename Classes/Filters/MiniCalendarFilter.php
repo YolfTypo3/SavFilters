@@ -14,6 +14,8 @@ namespace YolfTypo3\SavFilters\Filters;
  * The TYPO3 project - inspiring people to share!
  */
 
+namespace YolfTypo3\SavFilters\Filters;
+
 /**
  * Minicalendar filter
  *
@@ -21,7 +23,7 @@ namespace YolfTypo3\SavFilters\Filters;
  */
 class MiniCalendarFilter extends AbstractFilter
 {
-    
+
     /**
      * Setter for addWhere
      *
@@ -34,10 +36,13 @@ class MiniCalendarFilter extends AbstractFilter
         if (! empty($selected)) {
             $filterWhereClause = $this->controller->getFilterSetting('filterWhereClause');
             $addWhere .= $this->replaceParametersInFilterWhereClauseQuery($filterWhereClause);
+        } elseif (!empty($this->httpVariables['month'])) {
+            $filterWhereClause = $this->controller->getFilterSetting('whereClause');
+            $addWhere .= $this->replaceSpecialParametersInWhereClause($filterWhereClause);
         }
         $this->setFieldInSessionFilter('addWhere', $this->buildFilterWhereClause($addWhere));
     }
-    
+
     /**
      * Http variables processing
      *
@@ -50,7 +55,7 @@ class MiniCalendarFilter extends AbstractFilter
             $this->controller->getView()->assign('selected', $selected);
         }
     }
-    
+
     /**
      * Processes the filter
      *
@@ -58,30 +63,30 @@ class MiniCalendarFilter extends AbstractFilter
      */
     protected function filterProcessing()
     {
-        
+
         // Gets the month
         $month = $this->httpVariables['month'];
         if ($month === null) {
             $month = (new \DateTime())->format('Y-m');
         }
-        
+
         // Sets the current month
         $currentMonth = \DateTime::createFromFormat('Y-m', $month);
         $currentMonthHeader = strftime('%B %Y', $currentMonth->getTimestamp());
         $currentMonthName = $currentMonth->format('F Y');
-        
+
         // Sets the days header
         $daysHeader = [];
         for ($i = 0; $i < 7; $i ++) {
             $daysHeader[] = strftime('%a', strtotime('next Monday +' . $i . ' days'));
         }
-        
+
         // Sets the weeks header
         $weeksHeader = [];
         for ($i = 0; $i < 6; $i ++) {
             $weeksHeader[] = (new \DateTime('last Monday of ' . $currentMonthName . ' -1 month ' . $i . ' week'))->format('W');
         }
-        
+
         // Sets the days
         $values = [];
         $emptyDays = (new \DateTime('last Monday of ' . $currentMonthName . ' -1 month '))->diff(new \DateTime('first day of ' . $currentMonthName))->d;
@@ -92,7 +97,7 @@ class MiniCalendarFilter extends AbstractFilter
                 'class' => 'notInMonth'
             ];
         }
-        
+
         $daysInMonth = (new \DateTime($currentMonthName))->format('t');
         $firstDayInMonth = (new \DateTime('first day of ' . $currentMonthName))->format('w');
         for ($i = 0; $i < $daysInMonth; $i ++) {
@@ -111,7 +116,7 @@ class MiniCalendarFilter extends AbstractFilter
                 'title' => ''
             ];
         }
-        
+
         for ($i = $emptyDays + $daysInMonth, $counter = 1; $i < 42; $i ++, $counter ++) {
             $values[] = [
                 'active' => 0,
@@ -119,13 +124,13 @@ class MiniCalendarFilter extends AbstractFilter
                 'class' => 'notInMonth'
             ];
         }
-        
+
         // Creates the query builder
         $queryBuilder = $this->createQueryBuilder();
-        
+
         // Gets the rows
         $rows = $queryBuilder->execute()->fetchAll();
-        
+
         // Sets the values
         foreach ($rows as $row) {
             $value = new \DateTime($row['Value']);
@@ -133,7 +138,7 @@ class MiniCalendarFilter extends AbstractFilter
             $values[$index]['active'] = $value->format('d');
             $values[$index]['title'] .= (empty($values[$index]['title']) ? '' : chr(13)) . $row['Title'];
         }
-        
+
         // Assigns the variables
         $this->controller->getView()->assign('month', [
             'backward' => (new \DateTime('first day of ' . $currentMonthName . ' -1 month'))->format('Y-m'),
@@ -146,7 +151,7 @@ class MiniCalendarFilter extends AbstractFilter
         $this->controller->getView()->assign('weeksHeader', $weeksHeader);
         $this->controller->getView()->assign('values', $values);
     }
-    
+
     /**
      * Replaces special parameters in the where clause
      *
@@ -162,8 +167,7 @@ class MiniCalendarFilter extends AbstractFilter
         }
         $currentMonth = $month . '-01';
         $whereClause = str_replace('{currentMonth}', $currentMonth, $whereClause);
-        
+
         return $whereClause;
     }
 }
-?>

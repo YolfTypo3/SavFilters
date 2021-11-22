@@ -18,10 +18,10 @@ of the frontend users.
 
    INNER JOIN part can be added in the FROM field.
 
-The configuration folder contains also a field whose content is the **WHERE** 
+The configuration folder contains also a field whose content is the ``WHERE`` 
 clause to be added by the filter. In the following example, the filter 
 will add a restriction to the selected letter. 
-The Fluid variable **selected** used in the template must be prepended by **get**. 
+The Fluid variable ``selected`` used in the template must be prepended by ``get``. 
 
 .. figure:: ../../../Images/SavLibraryPlusAlphabeticFilterWhereClauseInBackEnd.png
   :alt: WHERE clause for the alphabetic filter
@@ -36,11 +36,11 @@ The search fields must be coma-separated.
 .. important::
 
    In specific cases you may want to associate functions with a field like, 
-   for example, **CONCAT**. In such a case, if you need to use commas in the 
-   function, please escape them with an **\\**. 
+   for example, ``CONCAT``. In such a case, if you need to use commas in the 
+   function, please escape them with an ``\\``. 
 	
    The following example should be used to search in the field names, 
-   **fisrt_name**, **last_name** of the table **fe_users** and in the concatenation 
+   ``fisrt_name``, ``last_name`` of the table ``fe_users`` and in the concatenation 
    of the first name and the last name in the same table.
 	
    .. code::

@@ -1,5 +1,4 @@
 <?php
-namespace YolfTypo3\SavFilters\Filters;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -13,6 +12,9 @@ namespace YolfTypo3\SavFilters\Filters;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+namespace YolfTypo3\SavFilters\Filters;
+
 use YolfTypo3\SavFilters\Controller\DefaultController;
 
 /**
@@ -93,4 +95,3 @@ class SearchFilter extends AbstractFilter
         $this->controller->getView()->assign('searchIcon', $searchIcon);
     }
 }
-?>

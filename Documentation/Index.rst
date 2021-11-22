@@ -2,9 +2,9 @@
 
 .. _start:
 
-===========
+=========== 
 SAV Filters
-===========
+=========== 
 
 :Extension key:
    sav_filters
@@ -16,13 +16,13 @@ SAV Filters
    en
 
 :Description:
-   A set of filters (alphabetic, months, search, selectors, mini calendar...) to be used with extension created by SAV Library Kickstarter for the SAV Library Plus.
+   A set of filters (alphabetic, months, search, selectors, mini calendar...) to be used with extension created by SAV Library Kickstarter for the SAV Library Plus and SAV Library Mvc.
 
 :Keywords:
    sav_filters    
 
 :Copyright:
-   2019
+   2021
 
 :Author:
    Laurent Foulloy
@@ -32,13 +32,13 @@ SAV Filters
 
 :License:
    This document is published under the Open Content License
-   available from http://www.opencontent.org/opl.shtml
+   available from `www.opencontent.org/openpub <https://www.opencontent.org/openpub/>`_.
 
 :Rendered:
    |today|
 
 The content of this document is related to TYPO3,
-a GNU/GPL CMS/Framework available from `www.typo3.org <http://www.typo3.org/>`_.
+a GNU/GPL CMS/Framework available from `www.typo3.org <https://www.typo3.org/>`_.
 
 
 Table of Contents
@@ -50,6 +50,4 @@ Table of Contents
    :glob:
   
    Introduction/Index
-   UserManual/Index
-   Configuration/Index
    Changelog/Index

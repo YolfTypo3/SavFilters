@@ -2,7 +2,8 @@
 defined('TYPO3_MODE') or die();
 
 // Configures the Dispatcher
-if (version_compare(\YolfTypo3\SavFilters\Controller\DefaultController::getTypo3Version(), '10.0', '<')) {
+$typo3Version = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class);
+if (version_compare($typo3Version->getVersion(), '10.0', '<')) {
     // @extensionScannerIgnoreLine
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin('YolfTypo3.sav_filters', 'Default',
         // Cachable controller actions
@@ -27,4 +28,3 @@ if (version_compare(\YolfTypo3\SavFilters\Controller\DefaultController::getTypo3
 
 // Adds a page module hook
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['list_type_Info']['savfilters_default']['sav_filters'] = \YolfTypo3\SavFilters\Hooks\PageLayoutView::class . '->getExtensionInformation';
-?>

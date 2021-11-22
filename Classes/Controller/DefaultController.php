@@ -1,5 +1,4 @@
 <?php
-namespace YolfTypo3\SavFilters\Controller;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -13,6 +12,10 @@ namespace YolfTypo3\SavFilters\Controller;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+namespace YolfTypo3\SavFilters\Controller;
+
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -21,7 +24,6 @@ use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Configuration\FrontendConfigurationManager;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Request;
@@ -142,6 +144,7 @@ class DefaultController extends ActionController
         $this->addCascadingStyleSheet($cssFile);
 
         // Replaces the pid list by the Record page storage if any and by the page uid otherwise
+        // @extensionScannerIgnoreLine
         $contentObject = $this->configurationManager->getContentObject();
         if (! empty($contentObject->data['pages'])) {
             $this->settings['flexform'][$filterName]['pidList'] = $contentObject->data['pages'];
@@ -153,10 +156,11 @@ class DefaultController extends ActionController
     /**
      * default action
      *
-     * @return void
+     * @return void|ResponseInterface
      */
     public function defaultAction()
     {
+
         // Gets the view type
         $filterType = $this->getFilterType();
 
@@ -172,9 +176,14 @@ class DefaultController extends ActionController
 
         $this->view->setTemplatePathAndFilename($template);
         if (! empty($filterClassName)) {
-            $filter = $this->objectManager->get($filterClassName);
+            $filter = GeneralUtility::makeInstance($filterClassName);
             $filter->injectController($this);
             $filter->render();
+        }
+
+        // For TYPO3 V11: action must return an instance of Psr\Http\Message\ResponseInterface
+        if (method_exists($this, 'htmlResponse')) {
+            return $this->htmlResponse($this->view->render());
         }
     }
 
@@ -336,16 +345,6 @@ class DefaultController extends ActionController
     }
 
     /**
-     * Gets the object manager
-     *
-     * @return ObjectManagerInterface
-     */
-    public function getObjectManager(): ObjectManagerInterface
-    {
-        return $this->objectManager;
-    }
-
-    /**
      * Gets the default root path
      *
      * @return string
@@ -386,24 +385,4 @@ class DefaultController extends ActionController
         }
         return $extensionWebPath;
     }
-
-    /**
-     * Gets the TYPO3 version
-     *
-     * @todo Will be removed in TYPO3 11
-     *
-     * @return string
-     */
-    public static function getTypo3Version()
-    {
-        if (class_exists(\TYPO3\CMS\Core\Information\Typo3Version::class)) {
-            $typo3Version = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class)->getVersion();
-        } else {
-            // @extensionScannerIgnoreLine
-            $typo3Version = TYPO3_version;
-        }
-        return $typo3Version;
-    }
 }
-
-?>

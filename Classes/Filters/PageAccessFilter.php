@@ -1,5 +1,4 @@
 <?php
-namespace YolfTypo3\SavFilters\Filters;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -13,12 +12,16 @@ namespace YolfTypo3\SavFilters\Filters;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+namespace YolfTypo3\SavFilters\Filters;
+
+use TYPO3\CMS\Core\Database\Connection;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Exception;
+use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Core\Database\Connection;
-use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use YolfTypo3\SavFilters\Controller\DefaultController;
 
@@ -177,7 +180,7 @@ class PageAccessFilter extends AbstractFilter
             $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($fromClause);
             $values = [
                 'cruser_id' => $feUserUid,
-                'pid' => $this->getTypoScriptFrontendController()->id,
+                'pid' => $this->getPageId(),
                 'crdate' => time(),
                 'tstamp' => time()
             ];
@@ -246,7 +249,7 @@ class PageAccessFilter extends AbstractFilter
                 // Prepares the values to be inserted
                 $values = [
                     'cruser_id' => $this->controller->getFilterSetting('cruserIdForCaptchaEmail'),
-                    'pid' => $this->getTypoScriptFrontendController()->id,
+                    'pid' => $this->getPageId(),
                     'crdate' => time(),
                     'tstamp' => time(),
                     $securityField => $email
@@ -259,12 +262,11 @@ class PageAccessFilter extends AbstractFilter
 
                 // Prepares the email
                 $arguments = [
-                    $this->controller->getConfigurationManager()
-                        ->getContentObject()
-                        ->typoLink($this->getTypoScriptFrontendController()->page['title'], [
-                        'parameter' => $this->getTypoScriptFrontendController()->id,
+                    $this->getControllerContentObject()->typoLink($this->getTypoScriptFrontendController()->page['title'], [
+                        'parameter' => $this->getPageId(),
                         'additionalParams' => '&tx_savfilters_default[controller]=Default&tx_savfilters_default[key]=' . md5($uid . $key . $email),
-                        'useCacheHash' => true
+                        'useCacheHash' => true,
+                        'forceAbsoluteUrl' => true
                     ])
                 ];
 
@@ -276,13 +278,28 @@ class PageAccessFilter extends AbstractFilter
                     $this->getTypoScriptFrontendController()->page['title']
                 ]);
                 try {
+                    /** @var MailMessage $mail */
                     $mail = GeneralUtility::makeInstance(MailMessage::class);
-                    $mail->setSubject($mailSubject);
-                    $mail->setFrom($mailSender);
-                    $mail->setTo($mailReceiver);
-                    $mail->setBody('<head><base href="' . GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . '" /></head><html>' . nl2br($mailMessage) . '</html>', 'text/html');
-                    $mail->addPart($mailMessage, 'text/plain');
+
+                    /**
+                     * @todo Will be removed in TYPO3 12
+                     */
+                    if (version_compare(GeneralUtility::makeInstance(Typo3Version::class)->getVersion(), '10.0', '<')) {
+                        $mail->setSubject($mailSubject);
+                        $mail->setFrom($mailSender);
+                        $mail->setTo(explode(',', $mailReceiver));
+                        $mail->setBody('<head><base href="' . GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . '" /></head><html>' . nl2br($mailMessage) . '</html>', 'text/html');
+                        $mail->addPart($mailMessage, 'text/plain');
+                    } else {
+                        $mail->subject($mailSubject);
+                        $mail->from($mailSender);
+                        $mail->to(...explode(',', $mailReceiver));
+                        $mail->html(nl2br($mailMessage));
+                        $mail->text($mailMessage);
+                    }
                     $sentMail = $mail->send();
+
+
                 } catch (\Exception $exception) {
                     $sentMail = false;
                     $this->controller->getView()->assign('captchaValidated', true);
@@ -324,4 +341,3 @@ class PageAccessFilter extends AbstractFilter
         }
     }
 }
-?>

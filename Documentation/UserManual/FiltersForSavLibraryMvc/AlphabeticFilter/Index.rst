@@ -23,6 +23,6 @@ of the frontend users.
       TYPO3\CMS\Extbase\Domain\Model\FrontendUser
    
 The field name is the name as it appears in the table. For example, 
-to use the last name one has to use **last_name** as a the field name.
+to use the last name one has to use ``last_name`` as a the field name.
 
 The search fields must be comma-separated.
