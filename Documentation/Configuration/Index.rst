@@ -25,8 +25,8 @@ The default root paths can be changed by modifying the following
    plugin.tx_savfilters.view.layoutRootPath = yourLayoutRootPath/	 
    plugin.tx_savfilters.view.partialRootPath = yourpartialRootPath/	
 
-Configuration of the Search Icon
-================================
+Configuration of the Icons
+==========================
 
 Use the following syntax to change the search icon.
 
@@ -34,7 +34,14 @@ Use the following syntax to change the search icon.
 
    plugin.tx_savfilters.settings.alphabeticFilter.searchIcon = yourSearchIconPath
    plugin.tx_savfilters.settings.monthsFilter.searchIcon = yourSearchIconPath	
-   plugin.tx_savfilters.settings.searchFilter.searchIcon = yourSearchIconPath	
+   plugin.tx_savfilters.settings.searchFilter.searchIcon = yourSearchIconPath
+   
+Use the following syntax to change the mini calendar icons.
+
+::
+
+   plugin.tx_savfilters.settings.miniCalendarFilter.leftArrowIcon = yourLeftArrowIconPath
+   plugin.tx_savfilters.settings.miniCalendarFilter.rightArrowIcon = yourRightArrowIconPath	  	
 	
 Configuration of the CSS File
 =============================	

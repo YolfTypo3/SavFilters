@@ -1,5 +1,4 @@
 <?php
-namespace YolfTypo3\SavFilters\Filters;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -139,6 +138,17 @@ class MiniCalendarFilter extends AbstractFilter
             $values[$index]['title'] .= (empty($values[$index]['title']) ? '' : chr(13)) . $row['Title'];
         }
 
+        // Gets the left and right arrow icons
+        $extensionKey = $this->controller->getRequest()->getControllerExtensionKey();
+        $leftArrowIcon = $this->controller->getFilterSetting('leftArrowIcon');
+        if (empty($leftArrowIcon)) {
+            $leftArrowIcon = 'EXT:' . $extensionKey . '/Resources/Public/Icons/leftArrow.gif';
+        }
+        $rightArrowIcon = $this->controller->getFilterSetting('rightArrowIcon');
+        if (empty($rightArrowIcon)) {
+            $rightArrowIcon = 'EXT:' . $extensionKey . '/Resources/Public/Icons/rightArrow.gif';
+        }
+
         // Assigns the variables
         $this->controller->getView()->assign('month', [
             'backward' => (new \DateTime('first day of ' . $currentMonthName . ' -1 month'))->format('Y-m'),
@@ -150,6 +160,8 @@ class MiniCalendarFilter extends AbstractFilter
         $this->controller->getView()->assign('daysHeader', $daysHeader);
         $this->controller->getView()->assign('weeksHeader', $weeksHeader);
         $this->controller->getView()->assign('values', $values);
+        $this->controller->getView()->assign('leftArrowIcon', $leftArrowIcon);
+        $this->controller->getView()->assign('rightArrowIcon', $rightArrowIcon);
     }
 
     /**
