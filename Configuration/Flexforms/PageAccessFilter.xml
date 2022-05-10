@@ -11,6 +11,7 @@
 					<label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.pageAccessType</label>
 					<config>
 						<type>select</type>
+						<renderType>selectSingle</renderType>
 						<items>
 							<numIndex index="0" type="array">
 								<numIndex index="0">LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.pageAccessType.I.0</numIndex>
