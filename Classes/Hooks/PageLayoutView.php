@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -52,7 +54,7 @@ class PageLayoutView
      *            Parameters to the hook
      * @return string Information about the plugin
      */
-    public function getExtensionInformation(array $params)
+    public function getExtensionInformation(array $params): string
     {
         $result = $params['pObj']->linkEditContent('<strong>' . $this->getLanguageService()
             ->sL(self::LANGUAGE_ROOT_PATH . 'locallang_db.xlf:' . 'tt_content.list_type_pi1') . '</strong><br>', $params['row']);
@@ -81,7 +83,7 @@ class PageLayoutView
      *            name of the sheet
      * @return string|null if nothing found, value if found
      */
-    protected function getFieldFromFlexform($key, $sheet = 'sDEF')
+    protected function getFieldFromFlexform(string $key, string $sheet = 'sDEF'): ?string
     {
         $flexform = $this->flexformData;
         if (isset($flexform['data'])) {
@@ -99,7 +101,7 @@ class PageLayoutView
      *
      * @return LanguageService
      */
-    protected function getLanguageService()
+    protected function getLanguageService(): LanguageService
     {
         return $GLOBALS['LANG'];
     }

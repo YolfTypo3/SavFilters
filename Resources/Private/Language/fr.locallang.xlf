@@ -266,6 +266,10 @@ Ce lien n'est valide que pour cette demande.
 				<source>Invalid link to access to this service.</source>
 				<target>Lien incorrect pour accéder au service.</target>				
 			</trans-unit>	
+            <trans-unit id="form.cancel" xml:space="preserve">
+                <source>Cancel the filter</source>
+                <target>Supprimer les filtres</target>                
+            </trans-unit>			
 			<trans-unit id="form.submit" xml:space="preserve">
 				<source>Submit</source>
 				<target>Envoyer</target>				

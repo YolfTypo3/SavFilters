@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -30,15 +32,9 @@ class MiniCalendarFilter extends AbstractFilter
      */
     protected function setAddWhereInSessionFilter()
     {
-        $addWhere = '';
-        $selected = $this->httpVariables['selected'];
-        if (! empty($selected)) {
-            $filterWhereClause = $this->controller->getFilterSetting('filterWhereClause');
-            $addWhere .= $this->replaceParametersInFilterWhereClauseQuery($filterWhereClause);
-        } elseif (!empty($this->httpVariables['month'])) {
-            $filterWhereClause = $this->controller->getFilterSetting('whereClause');
-            $addWhere .= $this->replaceSpecialParametersInWhereClause($filterWhereClause);
-        }
+        $filterWhereClause = $this->controller->getFilterSetting('filterWhereClause');
+        $addWhere = $this->replaceParametersInFilterWhereClauseQuery($filterWhereClause);
+
         $this->setFieldInSessionFilter('addWhere', $this->buildFilterWhereClause($addWhere));
     }
 
@@ -62,7 +58,6 @@ class MiniCalendarFilter extends AbstractFilter
      */
     protected function filterProcessing()
     {
-
         // Gets the month
         $month = $this->httpVariables['month'];
         if ($month === null) {
@@ -70,7 +65,7 @@ class MiniCalendarFilter extends AbstractFilter
         }
 
         // Sets the current month
-        $currentMonth = \DateTime::createFromFormat('Y-m', $month);
+        $currentMonth = \DateTime::createFromFormat('Y-m-d', $month . '-01');
         $currentMonthHeader = strftime('%B %Y', $currentMonth->getTimestamp());
         $currentMonthName = $currentMonth->format('F Y');
 
@@ -128,14 +123,16 @@ class MiniCalendarFilter extends AbstractFilter
         $queryBuilder = $this->createQueryBuilder();
 
         // Gets the rows
-        $rows = $queryBuilder->execute()->fetchAll();
+        if ($queryBuilder !== null) {
+            $rows = $queryBuilder->execute()->fetchAll();
 
-        // Sets the values
-        foreach ($rows as $row) {
-            $value = new \DateTime($row['Value']);
-            $index = $emptyDays + $value->format('d') - 1;
-            $values[$index]['active'] = $value->format('d');
-            $values[$index]['title'] .= (empty($values[$index]['title']) ? '' : chr(13)) . $row['Title'];
+            // Sets the values
+            foreach ($rows as $row) {
+                $value = new \DateTime($row['Value']);
+                $index = $emptyDays + $value->format('d') - 1;
+                $values[$index]['active'] = $value->format('d');
+                $values[$index]['title'] .= (empty($values[$index]['title']) ? '' : chr(13)) . $row['Title'];
+            }
         }
 
         // Gets the left and right arrow icons
@@ -170,7 +167,7 @@ class MiniCalendarFilter extends AbstractFilter
      * @param string $whereClause
      * @return string
      */
-    protected function replaceSpecialParametersInWhereClause($whereClause): string
+    protected function replaceSpecialParametersInWhereClause(string $whereClause): string
     {
         // Gets the month
         $month = $this->httpVariables['month'];

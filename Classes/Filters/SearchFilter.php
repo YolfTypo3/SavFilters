@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -86,12 +88,5 @@ class SearchFilter extends AbstractFilter
                 $extensionKey
             ]);
         }
-        // Sets the search icon
-        $searchIcon = $this->controller->getFilterSetting('searchIcon');
-        if (empty($searchIcon)) {
-            $searchIcon = 'EXT:' . $extensionKey . '/Resources/Public/Icons/search.png';
-        }
-
-        $this->controller->getView()->assign('searchIcon', $searchIcon);
     }
 }

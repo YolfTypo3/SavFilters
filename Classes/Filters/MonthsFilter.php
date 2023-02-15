@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -46,12 +48,8 @@ class MonthsFilter extends AbstractFilter
             $addWhere .= '(' . $this->replaceParametersInFilterWhereClauseQuery($filterWhereClause) . '0)';
         } else {
             $selected = $this->httpVariables['selected'];
-            if ($selected != 'all') {
-                $filterWhereClause = $this->controller->getFilterSetting('filterWhereClause');
-                $addWhere .= $this->replaceParametersInFilterWhereClauseQuery($filterWhereClause);
-            } else {
-                $addWhere = '1';
-            }
+            $filterWhereClause = $this->controller->getFilterSetting('filterWhereClause');
+            $addWhere .= $this->replaceParametersInFilterWhereClauseQuery($filterWhereClause);
         }
         $this->setFieldInSessionFilter('addWhere', $this->buildFilterWhereClause($addWhere));
     }
@@ -94,21 +92,23 @@ class MonthsFilter extends AbstractFilter
         $queryBuilder = $this->createQueryBuilder();
 
         // Gets the rows
-        $rows = $queryBuilder->execute()->fetchAll(\PDO::FETCH_BOTH);
-        $column = array_column($rows, 0);
+        if ($queryBuilder !== null) {
+            $rows = $queryBuilder->execute()->fetchAll(\PDO::FETCH_BOTH);
+            $column = array_column($rows, 0);
 
-        // Sets the values
-        foreach ($column as $row) {
-            // Gets the field value
-            $fieldValue = new \DateTime($row);
+            // Sets the values
+            foreach ($column as $row) {
+                // Gets the field value
+                $fieldValue = new \DateTime($row);
 
-            // Computes the interval in months from the begining of the year
-            $differenceFromFirstDayOfYear = (new \DateTime('first day of January this year'))->diff($fieldValue);
-            $intervalInMonths = (int) $differenceFromFirstDayOfYear->format('%R%m');
+                // Computes the interval in months from the begining of the year
+                $differenceFromFirstDayOfYear = (new \DateTime('first day of January this year'))->diff($fieldValue);
+                $intervalInMonths = (int) $differenceFromFirstDayOfYear->format('%R%m');
 
-            // Marks the month as active if in the allowed range
-            if ($intervalInMonths >= - $backwardMonths && $intervalInMonths < 12 + $forwardMonths) {
-                $values[$intervalInMonths]['active'] = (new \DateTime('first day of January this year ' . $intervalInMonths . 'month'))->format('Y-m');
+                // Marks the month as active if in the allowed range
+                if ($intervalInMonths >= - $backwardMonths && $intervalInMonths < 12 + $forwardMonths) {
+                    $values[$intervalInMonths]['active'] = (new \DateTime('first day of January this year ' . $intervalInMonths . 'month'))->format('Y-m');
+                }
             }
         }
 
@@ -132,14 +132,8 @@ class MonthsFilter extends AbstractFilter
                     $extensionKey
                 ]);
             }
-            // Sets the search icon
-            $searchIcon = $this->controller->getFilterSetting('searchIcon');
-            if (empty($searchIcon)) {
-                $searchIcon = 'EXT:' . $extensionKey . '/Resources/Public/Icons/search.png';
-            }
 
             $this->controller->getView()->assign('addSearchBox', 1);
-            $this->controller->getView()->assign('searchIcon', $searchIcon);
         }
     }
 

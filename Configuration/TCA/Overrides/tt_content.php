@@ -1,5 +1,5 @@
 <?php
-defined('TYPO3_MODE') or die();
+defined('TYPO3') or die();
 
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['savfilters_default'] = 'layout,select_key';
 // Adds the flexform field to plugin option

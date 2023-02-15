@@ -31,5 +31,5 @@ It includes a debug feature.
 Screenshots
 ===========
 
-.. figure:: ../Images/FiltersInFrontEnd.png
+.. figure:: ../Images/FiltersInFrontend.png
    :alt: Filters in the frontend

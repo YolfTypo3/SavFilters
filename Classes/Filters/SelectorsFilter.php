@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -33,10 +35,11 @@ class SelectorsFilter extends AbstractFilter
      */
     protected function setAddWhereInSessionFilter()
     {
-        $addWhere = '1';
+        $addWhere = '';
         $items = $this->controller->getFilterSetting('items');
         foreach ($items as $item) {
             $filterWhereClause = $this->controller->getFilterSetting('filterWhereClause', true);
+
             $isEmpty = true;
             // Finds the variable path
             $matches = [];
@@ -51,7 +54,11 @@ class SelectorsFilter extends AbstractFilter
                 }
             }
             if (! $isEmpty) {
-                $addWhere .= ' AND ' . $result;
+                if (empty($addWhere)) {
+                    $addWhere = '(' . $result . ')';
+                } else {
+                    $addWhere .= ' AND (' . $result . ')';
+                }
             }
         }
 
@@ -67,7 +74,6 @@ class SelectorsFilter extends AbstractFilter
     {}
 
     /**
-     * ];
      * Processes the filter
      *
      * @return void
@@ -76,57 +82,51 @@ class SelectorsFilter extends AbstractFilter
     {
         $templates = [];
         $items = $this->controller->getFilterSetting('items');
-        foreach ($items as $item) {
-            $template = $this->controller->getFilterSetting('template', true);
 
-            // Creates a view for the processings of the template
-            /** @var StandaloneView $view **/
-            $view = GeneralUtility::makeInstance(StandaloneView::class);
-            $partialRootPaths = $this->controller->getView()
-                ->getTemplatePaths()
-                ->getPartialRootPaths();
-            $view->setPartialRootPaths($partialRootPaths);
-            $controllerContext = $this->controller->getControllerContext();
-            $view->setControllerContext($controllerContext);
-            $view->setTemplateSource($template);
+        if (is_array($items)) {
+            foreach ($items as $item) {
+                $template = $this->controller->getFilterSetting('template', true);
 
-            $match = [];
+                // Creates a view for the processings of the template
+                /** @var StandaloneView $view **/
+                $view = GeneralUtility::makeInstance(StandaloneView::class);
+                $partialRootPaths = $this->controller->getView()
+                    ->getTemplatePaths()
+                    ->getPartialRootPaths();
+                $view->setPartialRootPaths($partialRootPaths);
+                $view->setTemplateSource($template);
 
-            if (preg_match('/<f:form.select.*?options="{([^"\-}]+).*?}"/', $template, $match)) {
+                $match = [];
+                if (preg_match('/<f:form.select.*?options="{([^"\-}]+).*?}"/', $template, $match)) {
 
-                // Creates the query builder
-                $queryBuilder = $this->createQueryBuilder();
+                    // Creates the query builder
+                    $queryBuilder = $this->createQueryBuilder();
 
-                // Gets the rows
-                $rows = $queryBuilder->execute()->fetchAll(\PDO::FETCH_BOTH);
-
-                if (is_array($rows[0]) && key_exists('uid', $rows[0])) {
-                    $values = array_column($rows, $match[1], 'uid');
-                } else {
-                    $values = array_column($rows, 0, 0);
+                    // Gets the rows
+                    $values = [];
+                    if ($queryBuilder !== null) {
+                        $rows = $queryBuilder->execute()->fetchAll(\PDO::FETCH_BOTH);
+                        if (is_array($rows[0]) && key_exists('uid', $rows[0])) {
+                            $values = array_column($rows, $match[1], 'uid');
+                        } else {
+                            $values = array_column($rows, 0, 0);
+                        }
+                    }
+                    $view->assign($match[1], $values);
                 }
-                $view->assign($match[1], $values);
+
+                // Adds the post variables
+                $view->assign('post', $this->httpVariables);
+
+                // Renders the template
+                $renderedTemplate = $view->render();
+
+                // Replaces the name by the extension name
+                $renderedTemplate = preg_replace('/name="([^"\[]+)/', 'name="tx_savfilters_default[$1]', $renderedTemplate);
+
+                $templates[] = $renderedTemplate;
             }
-
-            // Adds the post variables
-            $view->assign('post', $this->httpVariables);
-
-            // Renders the template
-            $renderedTemplate = $view->render();
-
-            // Replaces the name by the extension name
-            $renderedTemplate = preg_replace('/name="([^"\[]+)/', 'name="tx_savfilters_default[$1]', $renderedTemplate);
-
-            $templates[] = $renderedTemplate;
         }
-
-        // Sets the search icon
-        $extensionKey = $this->controller->getRequest()->getControllerExtensionKey();
-        $searchIcon = $this->controller->getFilterSetting('searchIcon');
-        if (empty($searchIcon)) {
-            $searchIcon = 'EXT:' . $extensionKey . '/Resources/Public/Icons/search.png';
-        }
-        $this->controller->getView()->assign('searchIcon', $searchIcon);
 
         $this->controller->getView()->assign('templates', $templates);
     }

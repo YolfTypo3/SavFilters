@@ -1,14 +1,18 @@
 <f:layout name="Default.html" />
 
 <f:section name="content">
+<f:form name="{filterName}" extensionName="savfilters" pluginName="default">
+    <f:form.hidden name="cid" value="{cid}" />
 	<ul>
-		<li class="searchBox"><f:form extensionName="savfilters"
-				pluginName="default">
-				<f:form.hidden name="cid" value="{cid}" />
-				<f:form.textfield name="searchSearchFilter"
-					placeholder="{f:translate(key:'form.searchBox.placeholder')}"
-					value="{searchSearchFilter}" />
-				<f:render partial="SubmitButton.html" arguments="{_all}" />
-			</f:form></li>
+		<li class="searchBox">
+			<f:form.textfield name="searchSearchFilter"
+				placeholder="{f:translate(key:'form.searchBox.placeholder')}"
+				value="{searchSearchFilter}" />
+		</li>
 	</ul>
+    <div class="filterButtons"  >
+        <f:form.button class="submit" type="submit"  name="submit" title="{f:translate(key:'form.submit')}" ><core:icon identifier="actions-search" /></f:form.button>
+        <f:form.button class="submit" type="submit"  name="cancel" title="{f:translate(key:'form.cancel')}" ><core:icon identifier="actions-close" /></f:form.button>    
+    </div> 
+</f:form>	
 </f:section>

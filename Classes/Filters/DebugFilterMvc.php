@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -15,50 +17,51 @@
 
 namespace YolfTypo3\SavFilters\Filters;
 
+use TYPO3\CMS\Core\Utility\ClassNamingUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Repository;
+use YolfTypo3\SavFilters\Controller\DefaultController;
+use YolfTypo3\SavFilters\Parser\WhereClauseParser;
 
 /**
  * Debug filter
  *
  * @package sav_filters
  */
-class DebugFilterMvc extends AbstractFilterMvc
+class DebugFilterMvc extends DebugFilter
 {
-
     /**
-     * Render
+     * Processes the filter
      *
      * @return void
      */
-    public function renderFilter()
+    protected function filterProcessing()
     {
-        // Gets the selected filter
-        $sessionFilters = self::getVariableFromSession('filters');
-        $selectedFilterKey = self::getVariableFromSession('selectedFilterKey');
+        // Checks if the filter should be processed
+        $libraryType = $this->sessionFilter[$this->sessionFilterSelected]['libraryType'];
+        if ($libraryType != DefaultController::FilterForSavLibraryMvc) {
+            return;
+        }
 
         // Gets the settings
-        $modelClassName = self::getFilterSetting('modelClassName');
-        $fieldsName = self::getFilterSetting('fieldsName');
-        $queryResult = self::getFilterSetting('queryResult');
+        $modelClassName = $this->controller->getFilterSetting('modelClassName');
+        $fieldsName = $this->controller->getFilterSetting('fieldsName');
+        $queryResult = $this->controller->getFilterSetting('queryResult');
 
-        if (! empty($selectedFilterKey)) {
-            $sessionSelectedFilter = $sessionFilters[$selectedFilterKey]['Mvc'];
-            $filterClassName = $sessionSelectedFilter['filterClassName'];
-            $selectedFilterName = basename($filterClassName);
+        if ($queryResult) {
 
-            if ($queryResult) {
+            // Gets the repository
+            $repository = $this->getRepository($modelClassName);
 
-                // Gets the repository
-                $repository = $this->getRepository($modelClassName);
+            // Gets the query and the filter contraints
+            $query = $repository->createQuery();
 
-                // Gets the query and the filter contraints
-                $query = $repository->createQuery();
-                $filterConstraints = $filterClassName::getFilterWhereClause($query);
-                if ($filterConstraints !== null) {
-                    $query = $query->matching($query->logicalAnd([
-                        $filterConstraints
-                    ]));
-                }
+            // Gets the additional WHERE clause in the selected filter
+            $addWhere = $this->sessionFilter[$this->sessionFilterSelected]['addWhere'];
+            if (! empty($addWhere)) {
+                $whereClauseParser = GeneralUtility::makeInstance(WhereClauseParser::class);
+                $whereClauseParser->injectRepository($repository);
+                $query = $query->matching($whereClauseParser->processWhereClause($query, $addWhere));
 
                 // Gets and processes the rows
                 $rows = $query->execute();
@@ -78,14 +81,28 @@ class DebugFilterMvc extends AbstractFilterMvc
                         }
                     }
                 }
-
-                $this->controller->getView()->assign('values', $values);
-                $this->controller->getView()->assign('queryResult', 1);
             }
+            $this->controller->getView()->assign('values', $values);
+            $this->controller->getView()->assign('queryResult', 1);
         }
 
+        $selectedFilterKey = $this->getTypoScriptFrontendController()->fe_user->getKey('ses', 'selectedFilterKey');
         $this->controller->getView()->assign('selectedFilterKey', $selectedFilterKey);
-        $this->controller->getView()->assign('selectedFilterName', $selectedFilterName);
-        $this->controller->getView()->assign('sessionSelectedFilter', $sessionSelectedFilter);
+        $this->controller->getView()->assign('selectedFilterName', $this->selectedFilterName);
+        $this->controller->getView()->assign('sessionSelectedFilter', $this->sessionFilter[$selectedFilterKey]);
     }
+
+    /**
+     * Gets the repository
+     *
+     * @param string $modelClassName
+     * @return Repository
+     */
+    protected function getRepository($modelClassName): Repository
+    {
+        $repositoryClassName = ClassNamingUtility::translateModelNameToRepositoryName($modelClassName);
+        $repository = GeneralUtility::makeInstance($repositoryClassName);
+        return $repository;
+    }
+
 }

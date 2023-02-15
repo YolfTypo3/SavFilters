@@ -22,7 +22,7 @@ SAV Filters
    sav_filters    
 
 :Copyright:
-   2021
+   2023
 
 :Author:
    Laurent Foulloy
@@ -50,6 +50,6 @@ Table of Contents
    :glob:
   
    Introduction/Index
-   UserManual/Index
-   Configuration/Index
+
+      
    Changelog/Index

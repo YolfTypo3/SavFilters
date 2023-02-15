@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -48,6 +50,9 @@ use YolfTypo3\SavFilters\Filters\SelectorsFilterMvc;
  */
 class DefaultController extends ActionController
 {
+    const FilterForSavLibraryPlus = 0;
+
+    const FilterForSavLibraryMvc = 1;
 
     const DefaultFilter = 0;
 
@@ -171,7 +176,7 @@ class DefaultController extends ActionController
         $filterClassName = $this->filterClasses[$filterType][$librarytype];
 
         // Gets the template file name
-        $templateFileName = $this->getFilterName() . '.html';
+        $templateFileName = $this->getTemplateName() . '.html';
         $template = $this->getDefaultTemplateRootPath() . $templateFileName;
 
         $this->view->setTemplatePathAndFilename($template);
@@ -192,7 +197,7 @@ class DefaultController extends ActionController
      *
      * @return ConfigurationManagerInterface
      */
-    public function getConfigurationManager()
+    public function getConfigurationManager(): ConfigurationManagerInterface
     {
         return $this->configurationManager;
     }
@@ -217,7 +222,7 @@ class DefaultController extends ActionController
      *
      * @return boolean Returns always false so that it can be used in return statements
      */
-    public static function addError(string $key, $arguments = null)
+    public static function addError(string $key, $arguments = null): bool
     {
         $message = LocalizationUtility::translate($key, 'sav_filters', $arguments);
         $flashMessage = GeneralUtility::makeInstance(FlashMessage::class, $message, '', FlashMessage::ERROR);
@@ -233,7 +238,7 @@ class DefaultController extends ActionController
      */
     public function getFilterType(): int
     {
-        return $this->settings['flexform']['type'];
+        return (int) $this->settings['flexform']['type'];
     }
 
     /**
@@ -246,16 +251,16 @@ class DefaultController extends ActionController
         if (! isset($this->settings['flexform']['libraryType'])) {
             return 0;
         } else {
-            return $this->settings['flexform']['libraryType'];
+            return (int) $this->settings['flexform']['libraryType'];
         }
     }
 
     /**
      * Gets the extension WHERE clause action
      *
-     * @return int|null
+     * @return string|null
      */
-    public function getExtensionWhereClauseAction()
+    public function getExtensionWhereClauseAction(): ?string
     {
         return $this->settings['flexform']['extensionWhereClauseAction'];
     }
@@ -263,9 +268,9 @@ class DefaultController extends ActionController
     /**
      * Gets the additional filter WHERE clause
      *
-     * @return int|null
+     * @return string|null
      */
-    public function getAdditionalFilterWhereClause()
+    public function getAdditionalFilterWhereClause(): ?string
     {
         return $this->settings['flexform']['additionalFilterWhereClause'];
     }
@@ -273,9 +278,9 @@ class DefaultController extends ActionController
     /**
      * Gets the CSS file
      *
-     * @return int|null
+     * @return string|null
      */
-    public function getCssFile()
+    public function getCssFile(): ?string
     {
         return $this->settings['flexform']['cssFile'];
     }
@@ -288,6 +293,18 @@ class DefaultController extends ActionController
     public function getFilterName(): string
     {
         $filterType = $this->getFilterType();
+        $libraryType = $this->getLibraryType();
+        return (new \ReflectionClass($this->filterClasses[$filterType][$libraryType]))->getShortName();
+    }
+
+    /**
+     * Gets the template name
+     *
+     * @return string
+     */
+    public function getTemplateName(): string
+    {
+        $filterType = $this->getFilterType();
         $libraryType = 0;
         return (new \ReflectionClass($this->filterClasses[$filterType][$libraryType]))->getShortName();
     }
@@ -297,7 +314,7 @@ class DefaultController extends ActionController
      *
      * @return array
      */
-    public function getSettings()
+    public function getSettings(): array
     {
         return $this->settings;
     }
@@ -311,6 +328,9 @@ class DefaultController extends ActionController
      */
     public function getFilterSetting(string $field, $isNewItem = false)
     {
+        if ($field === 'libraryType') {
+            return $this->settings['flexform']['libraryType'];
+        }
         $filterName = lcfirst($this->getFilterName());
         if ($field === 'items') {
             $this->itemCounter = - 1;

@@ -53,7 +53,7 @@ class PageAccessFilter extends AbstractFilter
      *
      * @return boolean (false if a problem occured)
      */
-    protected function filterInitialisation()
+    protected function filterInitialisation(): bool
     {
         $pageAccessType = $this->controller->getFilterSetting('pageAccessType');
         switch ($pageAccessType) {

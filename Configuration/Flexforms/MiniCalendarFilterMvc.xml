@@ -10,37 +10,61 @@
 			 	<numIndex index="1">FIELD:sDEF.settings.flexform.type:=:5</numIndex>
 			</AND>
 		</displayCond>
-		<el>
-        	<settings.flexform.miniCalendarFilterMvc.modelClassName>
-            	<TCEforms>
-                	<exclude>0</exclude>
-                	<label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.modelClassName</label>
+        <el>
+            <settings.flexform.miniCalendarFilterMvc.selectClause>
+                <TCEforms>
+                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.selectClause</label>
                     <config>
                         <type>input</type>
-                        <size>30</size>
-                    </config>
+                        <size>50</size>
+                    </config>                           
                 </TCEforms>
-            </settings.flexform.miniCalendarFilterMvc.modelClassName>
-            <settings.flexform.miniCalendarFilterMvc.fieldNameForDate>
+            </settings.flexform.miniCalendarFilterMvc.selectClause>            
+            <settings.flexform.miniCalendarFilterMvc.fromClause>
                 <TCEforms>
-                    <exclude>0</exclude>
-                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.fieldNameForDate</label>
+                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.fromClause</label>
                     <config>
                         <type>input</type>
-                        <size>30</size>
-                    </config>
+                        <size>50</size>
+                    </config>                           
                 </TCEforms>
-            </settings.flexform.miniCalendarFilterMvc.fieldNameForDate>                    
-            <settings.flexform.miniCalendarFilterMvc.fieldNameForTitle>
+            </settings.flexform.miniCalendarFilterMvc.fromClause>
+            <settings.flexform.miniCalendarFilterMvc.whereClause>
                 <TCEforms>
-                	<exclude>0</exclude>
-                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.fieldNameForTitle</label>
+                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.whereClause</label>
                     <config>
-                    	<type>input</type>
-                        <size>30</size>
+                        <type>input</type>
+                        <size>50</size>
+                    </config>                           
+                </TCEforms>
+            </settings.flexform.miniCalendarFilterMvc.whereClause> 
+            <settings.flexform.miniCalendarFilterMvc.groupByClause>
+                <TCEforms>
+                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.groupByClause</label>
+                    <config>
+                        <type>input</type>
+                        <size>50</size>
+                    </config>                           
+                </TCEforms>
+            </settings.flexform.miniCalendarFilterMvc.groupByClause>   
+            <settings.flexform.miniCalendarFilterMvc.orderByClause>
+                <TCEforms>
+                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.orderByClause</label>
+                    <config>
+                        <type>input</type>
+                        <size>50</size>
+                    </config>                           
+                </TCEforms>
+            </settings.flexform.miniCalendarFilterMvc.orderByClause>                                       
+            <settings.flexform.miniCalendarFilterMvc.filterWhereClause>
+                <TCEforms>
+                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.filterWhereClause</label>
+                    <config>
+                        <type>input</type>
+                        <size>50</size>
                     </config>
                 </TCEforms>
-            </settings.flexform.miniCalendarFilterMvc.fieldNameForTitle>   					
-		</el>
+            </settings.flexform.miniCalendarFilterMvc.filterWhereClause>
+        </el>
 	</ROOT>
 </T3DataStructure>			

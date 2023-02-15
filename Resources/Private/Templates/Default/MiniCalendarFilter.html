@@ -5,16 +5,16 @@
 
 		<div class="monthHeader">
 			<f:link.action extensionName="savfilters" pluginName="default"
-				arguments="{cid:cid,month:month.backward}"
+				arguments="{cid:cid, month:month.backward}"
 				title="{f:translate(key:'button.previousMonth')}">
 				<f:image class="leftArrow"
 					src="{leftArrowIcon}" />
 			</f:link.action>
 			<f:link.action extensionName="savfilters" pluginName="default"
-				arguments="{cid:cid,month:month.current}"
+				arguments="{cid:cid, month:month.current}"
 				title="{f:translate(key:'button.currentMonth')}" class="month">{currentMonthHeader}</f:link.action>
 			<f:link.action extensionName="savfilters" pluginName="default"
-				arguments="{cid:cid,month:month.forward}"
+				arguments="{cid:cid, month:month.forward}"
 				title="{f:translate(key:'button.nextMonth')}">
 				<f:image class="rightArrow"
 					src="{rightArrowIcon}" />

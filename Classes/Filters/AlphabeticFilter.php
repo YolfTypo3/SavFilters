@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -40,19 +42,20 @@ class AlphabeticFilter extends AbstractFilter
             if (preg_match_all('/((?:\\\\,|[^,])+)/', $searchFields, $matches)) {
                 $filterWhereClause = '';
                 foreach ($matches[1] as $match) {
-                    $filterWhereClause .= trim(str_replace('\,', ',', $match)) . ' LIKE \'%{post.searchAlphabeticFilter}%\' OR ';
+                    $expression = trim(str_replace('\,', ',', $match)) . ' LIKE \'%{post.searchAlphabeticFilter}%\'';
+                    if ($filterWhereClause != '') {
+                        $filterWhereClause = $filterWhereClause . ' OR ' . $expression;
+                    } else {
+                        $filterWhereClause = $expression;
+                    }
                 }
             }
 
-            $addWhere .= '(' . $this->replaceParametersInFilterWhereClauseQuery($filterWhereClause) . '0)';
+            $addWhere .= '(' . $this->replaceParametersInFilterWhereClauseQuery($filterWhereClause) . ')';
         } else {
             $selected = $this->httpVariables['selected'];
-            if ($selected != 'all') {
-                $filterWhereClause = $this->controller->getFilterSetting('filterWhereClause');
-                $addWhere .= $this->replaceParametersInFilterWhereClauseQuery($filterWhereClause);
-            } else {
-                $addWhere = '1';
-            }
+            $filterWhereClause = $this->controller->getFilterSetting('filterWhereClause');
+            $addWhere .= $this->replaceParametersInFilterWhereClauseQuery($filterWhereClause);
         }
 
         $this->setFieldInSessionFilter('addWhere', $this->buildFilterWhereClause($addWhere));
@@ -120,14 +123,8 @@ class AlphabeticFilter extends AbstractFilter
                     $extensionKey
                 ]);
             }
-            // Sets the search icon
-            $searchIcon = $this->controller->getFilterSetting('searchIcon');
-            if (empty($searchIcon)) {
-                $searchIcon = 'EXT:' . $extensionKey . '/Resources/Public/Icons/search.png';
-            }
 
             $this->controller->getView()->assign('addSearchBox', 1);
-            $this->controller->getView()->assign('searchIcon', $searchIcon);
         }
     }
 
@@ -137,7 +134,7 @@ class AlphabeticFilter extends AbstractFilter
      * @param string $whereClause
      * @return string
      */
-    protected function replaceSpecialParametersInWhereClause($whereClause): string
+    protected function replaceSpecialParametersInWhereClause(string $whereClause): string
     {
         $allowedGroups = explode(',', $this->controller->getFilterSetting('allowedGroups'));
         if (! empty($allowedGroups)) {

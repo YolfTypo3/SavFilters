@@ -1,6 +1,8 @@
 <f:layout name="Default.html" />
 
 <f:section name="content">
+<f:form name="{filterName}" extensionName="savfilters" pluginName="default">
+    <f:form.hidden name="cid" value="{cid}" />
 	<ul>
 		<f:for each="{values}" key="letter" as="value">
 			<f:if condition="{value}">
@@ -14,20 +16,17 @@
 				</f:else>
 			</f:if>
 		</f:for>
-		<li class="all"><f:link.action extensionName="savfilters"
-				pluginName="default" arguments="{cid:cid,selected:'all'}"
-				class="{f:if(condition:'{selected}==\'all\'',then:'selected')}">
-				<f:translate
-					key="all" />
-			</f:link.action></li>
-
-		<f:if condition="{addSearchBox}">
-			<li class="searchBox"><f:form extensionName="savfilters"
-					pluginName="default">
-					<f:form.hidden name="cid" value="{cid}" />
-					<f:form.textfield name="searchAlphabeticFilter" placeholder="{f:translate(key:'form.searchBox.placeholder')}" value="{searchAlphabeticFilter}" /> 
-					<f:render partial="SubmitButton.html" arguments="{_all}" />
-				</f:form></li>
-		</f:if>
-	</ul>
+        <f:if condition="{addSearchBox}">
+            <li class="searchBox">
+                <f:form.textfield name="searchAlphabeticFilter" placeholder="{f:translate(key:'form.searchBox.placeholder')}" value="{searchAlphabeticFilter}" />
+            </li>
+        </f:if>		
+    </ul>
+    <div class="filterButtons"	>
+        <f:if condition="{addSearchBox}">
+            <f:form.button class="submit" type="submit"  name="submit" title="{f:translate(key:'form.submit')}" ><core:icon identifier="actions-search" /></f:form.button>
+        </f:if>
+        <f:form.button class="submit" type="submit"  name="cancel" title="{f:translate(key:'form.cancel')}" ><core:icon identifier="actions-close" /></f:form.button>    
+    </div>	
+</f:form>	
 </f:section>

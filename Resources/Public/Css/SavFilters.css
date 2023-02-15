@@ -6,6 +6,7 @@
  */
 
 .savFilters {
+	display: flex;
 	width: 100%;
 	box-sizing: content-box;
 	height: auto;
@@ -23,9 +24,24 @@
 .savFilters ul.typo3-messages li::before {
 	content: none;
 }
-.savFilters .container.AlphabeticFilter, .savFilters .container.MonthsFilter,
-	.savFilters .container.SearchFilter, .savFilters .container.SelectorsFilter,
-	.savFilters .container.MiniCalendarFilter, .savFilters .container.PageAccessFilter{
+.savFilters .icon-size-small {
+    display: inline-block;	
+    width: 18px;
+    height: 18px;
+    padding: 0px 1px 0px 1px;
+    margin: 0px;
+    border-width: 0px;
+} 
+.savFilters .icon .icon-markup {
+    width: 100%;
+    height: 100%;
+}  
+.savFilters .icon svg {
+    width: 100%;
+    height: 100%;
+}  
+
+.savFilters .container {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -34,8 +50,12 @@
 	color: inherit;
 	margin: 0;
 	padding: 0;
+    background-color: #f1fbfd;
+    border: 1px #000099 solid;  
+    list-style: none;	
 }
-.savFilters .container label{
+
+.savFilters .container label {
 	font-weight: bold;
 	margin:0;
 }
@@ -46,6 +66,14 @@
 	font-weight: bold;
 	margin:0;
 }
+.savFilters .container form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: inherit;
+    padding: 0;
+    margin: 0;   
+}
 .savFilters .container ul {
 	display: flex;
 	align-items: center;
@@ -53,10 +81,6 @@
 	width: inherit;
 	padding: 0;
 	margin: 0;
-	background-color: #f1fbfd;
-	border: 1px #000099 solid;	
-	list-style: none;
-	padding: 2px;
 	flex-wrap: wrap;	
 }
 .savFilters .container ul li {
@@ -82,59 +106,27 @@
 	color: #EA6900;
 	text-decoration: underline;
 }
-.savFilters .container form {
-	margin: 0;
+
+.savFilters .container .filterButtons {
 	display: flex;
-	align-items: center;
-	justify-content: center;
+	justify-content: flex-end;
+	align-items: flex-start;
+	align-self: flex-start;
+	padding: 2px;
 }
-.savFilters.SearchBox input {
-	margin-left: 10px;
-}
-.savFilters .container .submit {
-	cursor: pointer;
-}
-.savFilters .container .submit img {
-	width: 14px;
-	height: 14px;
+.savFilters .container .filterButtons .submit {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    margin: 0;
 }
 
 /**
- * SelectorsFilter 
+ * DebugFilter 
  */
-.savFilters  .container.SelectorsFilter ul{
-	align-items: flex-start;
-	flex-wrap: wrap;
-	justify-content: flex-start;
-}
-.savFilters  .container.SelectorsFilter ul li{
-	margin:0 5px;
-}
-.savFilters  .container.SelectorsFilter form{
-	width:100%;
-}
-
-.savFilters .container.SelectorsFilter div.group {
-	display: block;
-} 
-.savFilters .container.SelectorsFilter div.group ul{
-	display: block;
-	border:none;
-} 
-.savFilters .container.SelectorsFilter div.group li{
-	margin:0;
-	display: block;
-} 
-.savFilters .container.SelectorsFilter div.group li input{
-	margin:0;
-}
-.savFilters .container.SelectorsFilter div.group label{
-	font-weight: normal;
-	margin:0;
-	padding:0 3px;
-}
-.savFilters .container.SelectorsFilter ul li.submit{
-	margin-left:auto;
+.savFilters .container.DebugFilter {
+    display: none;
 }
 
 /** 
@@ -253,3 +245,36 @@
   .savFilters .container.PageAccessFilter .email label {
  	margin: 10px 0;
  }
+ 
+ /**
+ * SelectorsFilter 
+ */
+.savFilters .container.SelectorsFilter ul {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.savFilters .container.SelectorsFilter ul li {
+    margin:0 5px;
+}
+.savFilters .container.SelectorsFilter div.group {
+    display: block;
+} 
+.savFilters .container.SelectorsFilter div.group ul {
+    display: block;
+    border:none;
+} 
+.savFilters .container.SelectorsFilter div.group li{
+    margin:0;
+    display: block;
+} 
+.savFilters .container.SelectorsFilter div.group li input {
+    margin:0;
+}
+.savFilters .container.SelectorsFilter div.group label {
+    font-weight: normal;
+    margin:0;
+    padding:0 3px;
+}
+
+ 

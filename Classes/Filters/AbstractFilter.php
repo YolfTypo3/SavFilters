@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -20,6 +22,7 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use YolfTypo3\SavFilters\Controller\DefaultController;
 
@@ -76,7 +79,7 @@ abstract class AbstractFilter
     protected $httpVariables;
 
     /**
-     * True if piVars are reloaded from the session
+     * True if Http variables are reloaded from the session
      *
      * @var bool
      */
@@ -118,6 +121,11 @@ abstract class AbstractFilter
     protected $selectedFilterName = '';
 
     /**
+     * @var boolean
+     */
+    protected static $keepWhereClause = true;
+
+    /**
      * Injects the controller
      *
      * @param DefaultController $controller
@@ -153,42 +161,61 @@ abstract class AbstractFilter
     /**
      * Initialisation of the filter
      *
-     * @return boolean (false if a problem occured)
+     * @return boolean (false if the filter is cancelled)
      */
-    protected function filterInitialisation()
+    protected function filterInitialisation(): bool
     {
         // Gets the session variables
         $this->sessionFilter = $this->getDataFromSession('filters');
         $this->sessionFilterSelected = $this->getDataFromSession('selectedFilterKey');
         $this->selectedFilterName = $this->getDataFromSession('selectedFilterName');
 
-        // Gets the http variables
-        $this->httpVariables = $this->controller->getRequest()->getArguments();
-
         // Creates an extension key with the content uid
         $extensionKey = $this->controller->getRequest()->getControllerExtensionKey();
         $this->contentUid = $this->getContentUid();
         $this->extensionKeyWithUid = $extensionKey . '_' . $this->contentUid;
 
-        // Sets the pageId
-        if ($this->sessionFilter[$this->extensionKeyWithUid]['pageId'] != $this->getPageId() && $this->sessionFilterSelected == $this->extensionKeyWithUid) {
-            unset($this->sessionFilterSelected);
-            unset($this->selectedFilterName);
+        // Gets the http variables
+        $this->httpVariables = $this->controller->getRequest()->getArguments();
+
+        // Checks if the filter is selected
+        if (empty(GeneralUtility::_GET()) && empty(GeneralUtility::_POST())) {
+            self::getTypoScriptFrontendController()->fe_user->setKey('ses', 'selectedFilterKey', null);
+        } elseif ($this->httpVariables['cid'] == $this->contentUid) {
+            // Checks if the filter is cancelled
+            if (isset($this->httpVariables['cancel']) && $this->httpVariables['cid'] == $this->contentUid) {
+                self::getTypoScriptFrontendController()->fe_user->setKey('ses', 'selectedFilterKey', null);
+                $this->httpVariables = [
+                    'controller' => $this->httpVariables['controller'],
+                    'cid' => $this->httpVariables['cid'],
+                    'cancel' => ''
+                ];
+            } else {
+                // The filter is selected
+                $this->sessionFilterSelected = $this->extensionKeyWithUid;
+            }
+        } else {
+            if ($this->sessionFilterSelected == $this->extensionKeyWithUid) {
+                $this->httpVariables = $this->getFieldInSessionFilter('httpVariables');
+            } else {
+                $this->httpVariables = [
+                    'controller' => $this->httpVariables['controller'],
+                    'cid' => $this->httpVariables['cid'],
+                ];
+            }
         }
+
+        // Sets the keepWhereClause flag
+        self::$keepWhereClause = $this->controller->getExtensionWhereClauseAction() == 0;
+
         $this->sessionFilter[$this->extensionKeyWithUid]['pageId'] = $this->getPageId();
         $this->sessionFilter[$this->extensionKeyWithUid]['contentUid'] = $this->contentUid;
         $this->sessionFilter[$this->extensionKeyWithUid]['tstamp'] = time();
+        $this->sessionFilter[$this->extensionKeyWithUid]['libraryType'] = $this->controller->getLibraryType();
 
-        // Recovers the http variable from the session
-        $httpVariablesInSessionFilter = $this->getFieldInSessionFilter('httpVariables');
-        if (! count($this->httpVariables) && GeneralUtility::_GP('sav_library_plus') && $httpVariablesInSessionFilter !== null) {
-            $this->httpVariables = $httpVariablesInSessionFilter;
-            $this->sessionFilterSelected = $this->extensionKeyWithUid;
-            $this->controller->httpVariablesReloaded = true;
-        }
-
+        $this->controller->getView()->assign('filterName', $this->extensionKeyWithUid);
         $this->controller->getView()->assign('cid', $this->contentUid);
-        $this->controller->getView()->assign('filterName', $this->controller->getFilterName());
+        $this->controller->getView()->assign('templateName', $this->controller->getTemplateName());
 
         return true;
     }
@@ -205,9 +232,10 @@ abstract class AbstractFilter
             $this->setAddWhereInSessionFilter();
             $this->setSearchInSessionFilter();
             $this->setSearchOrderInSessionFilter();
+            $this->setKeepWhereClauseInSessionFilter();
 
             // Sets the filterSelected with the current extension
-            if (($this->httpVariables['cid'] == $this->contentUid) || $this->forceSetSessionFields) {
+            if (! isset($this->httpVariables['cancel']) && ($this->httpVariables['cid'] == $this->contentUid) || $this->forceSetSessionFields) {
                 $this->sessionFilterSelected = $this->extensionKeyWithUid;
                 $this->selectedFilterName = basename(get_class($this));
                 $this->setDataToSession('selectedFilterKey', $this->sessionFilterSelected);
@@ -216,12 +244,12 @@ abstract class AbstractFilter
 
             // Adds the http variables in the session filter
             $this->setFieldInSessionFilter('httpVariables', $this->httpVariables);
+
         }
 
         // Sets session data
         $this->setDataToSession('filters', $this->sessionFilter);
         $this->storeDataInSession();
-
     }
 
     /**
@@ -272,12 +300,22 @@ abstract class AbstractFilter
     }
 
     /**
+     * Setter for keepWhereClause
+     *
+     * @return void
+     */
+    protected function setKeepWhereClauseInSessionFilter()
+    {
+        $this->setFieldInSessionFilter('keepWhereClause', self::$keepWhereClause);
+    }
+
+    /**
      * Gets a http variable from string path
      *
      * @param string $path
      * @return mixed
      */
-    protected function getHttpVariableFromPath($path)
+    protected function getHttpVariableFromPath(string $path)
     {
         $result = $this->httpVariables;
         $parts = explode('.', $path);
@@ -314,7 +352,7 @@ abstract class AbstractFilter
      *
      * @return QueryBuilder
      */
-    protected function createQueryBuilder()
+    protected function createQueryBuilder(): ?QueryBuilder
     {
         // Gets the query parts and the pid list
         $selectClause = $this->controller->getFilterSetting('selectClause');
@@ -327,13 +365,16 @@ abstract class AbstractFilter
         $orderByClause = $this->controller->getFilterSetting('orderByClause');
 
         $pidList = $this->controller->getFilterSetting('pidList');
-
         if (method_exists($this, 'replaceSpecialParametersInWhereClause')) {
             $whereClause = $this->replaceSpecialParametersInWhereClause($whereClause);
         }
 
         // Creates the query builder
         $queryBuilder = $this->getQueryBuilder($fromClause);
+        if ($queryBuilder === null) {
+            return null;
+        }
+
         $fromPart = $queryBuilder->getQueryPart('from')[0]['table'];
         $queryBuilder->select('*')
             ->where($queryBuilder->expr()
@@ -361,18 +402,26 @@ abstract class AbstractFilter
      * Gets querier builder
      *
      * @param string $table
-     * @return QueryBuilder
+     * @return QueryBuilder|null
      */
-    protected function getQueryBuilder($table)
+    protected function getQueryBuilder(?string $table): ?QueryBuilder
     {
+
+        if ($table === null) {
+            return null;
+        }
         // Filters the FROM clause to get the INNER JOIN parts if any);
         $match = [];
-        preg_match('/(?P<From>\w+)(?P<InnerJoin>.*)/', $table, $match);
-        $fromClause = $match['From'];
+        preg_match_all('/^(?P<From>\w+)(?P<InnerJoin>.+)?$/s', $table, $match);
+        $fromClause = $match['From'][0];
+        $innerJoinClause = $match['InnerJoin'][0];
         $matches = [];
-        preg_match_all('/\s+INNER JOIN\s+(?P<Table>\w+)(?P<Alias>\s+\w+)?\s+ON\s+(?P<OnLeft>[^=\s]+)\s*=\s*(?P<OnRight>[^\s]*)/', $match['InnerJoin'], $matches);
+        preg_match_all('/\s+INNER JOIN\s+(?P<Table>\w+)(?P<Alias>\s+\w+)?\s+ON\s+(?P<OnLeft>[^=\s]+)\s*=\s*(?P<OnRight>[^\s]*)/', $innerJoinClause, $matches);
 
         // Creates the query builder
+        if ($fromClause === null) {
+            return null;
+        }
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($fromClause);
 
         // Adds the INNER JOIN clause if any
@@ -396,10 +445,10 @@ abstract class AbstractFilter
     /**
      * Builds the filter WHERE clause
      *
-     * @param string $whereClause
-     * @return string
+     * @param string|null $whereClause
+     * @return string|null
      */
-    protected function buildFilterWhereClause($whereClause)
+    protected function buildFilterWhereClause(?string $whereClause): ?string
     {
         $additionalFilterWhereClause = $this->controller->getAdditionalFilterWhereClause();
         if (! empty($additionalFilterWhereClause)) {
@@ -412,10 +461,10 @@ abstract class AbstractFilter
     /**
      * Replaces parameters in the filter WHERE clause
      *
-     * @param string $filterWhereClause
-     * @return string
+     * @param string|null $filterWhereClause
+     * @return string|null
      */
-    protected function replaceParametersInFilterWhereClauseQuery($filterWhereClause): string
+    protected function replaceParametersInFilterWhereClauseQuery(?string $filterWhereClause): ?string
     {
         // Finds the variable paths
         $matches = [];
@@ -438,7 +487,7 @@ abstract class AbstractFilter
      *
      * @return TypoScriptFrontendController
      */
-    protected function getTypoScriptFrontendController()
+    protected function getTypoScriptFrontendController(): TypoScriptFrontendController
     {
         return $GLOBALS['TSFE'];
     }
@@ -456,9 +505,9 @@ abstract class AbstractFilter
     /**
      * Gets the page id
      *
-     * @return integer
+     * @return int
      */
-    protected function getPageId()
+    protected function getPageId(): int
     {
         // @extensionScannerIgnoreLine
         return $this->getTypoScriptFrontendController()->id;
@@ -467,9 +516,9 @@ abstract class AbstractFilter
     /**
      * Gets the controller content object
      *
-     * @return integer
+     * @return ContentObjectRenderer|null
      */
-    protected function getControllerContentObject()
+    protected function getControllerContentObject(): ?ContentObjectRenderer
     {
         // @extensionScannerIgnoreLine
         return $this->controller->getConfigurationManager()->getContentObject();
@@ -478,9 +527,9 @@ abstract class AbstractFilter
     /**
      * Gets the content uid
      *
-     * @return integer
+     * @return int
      */
-    protected function getContentUid()
+    protected function getContentUid(): int
     {
         return $this->getControllerContentObject()->data['uid'];
     }
@@ -489,9 +538,9 @@ abstract class AbstractFilter
      * Gets data from session
      *
      * @param string $key
-     * @return array
+     * @return mixed
      */
-    protected function getDataFromSession($key)
+    protected function getDataFromSession(string $key)
     {
         $frontEndUser = $this->getTypoScriptFrontendController()->fe_user;
         return $frontEndUser->getKey('ses', $key);
@@ -501,10 +550,10 @@ abstract class AbstractFilter
      * Sets data to session
      *
      * @param string $key
-     * @param array $value
+     * @param mixed $value
      * @return void
      */
-    protected function setDataToSession($key, $value)
+    protected function setDataToSession(string $key, $value)
     {
         $frontEndUser = $this->getTypoScriptFrontendController()->fe_user;
         $frontEndUser->setKey('ses', $key, $value);
@@ -513,7 +562,7 @@ abstract class AbstractFilter
     /**
      * Stores the data in session
      *
-     * @return array
+     * @return void
      */
     protected function storeDataInSession()
     {
@@ -521,4 +570,5 @@ abstract class AbstractFilter
         // @extensionScannerIgnoreLine
         $frontEndUser->storeSessionData();
     }
+
 }

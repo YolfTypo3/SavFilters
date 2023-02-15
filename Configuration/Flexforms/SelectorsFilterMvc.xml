@@ -30,24 +30,60 @@
                						</config>  
                                 </TCEforms>                                    
                             </template>
-                            <modelClassName>                                                                               
+                            <selectClause>
                                 <TCEforms>
-                                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.modelClassName</label>
+                                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.selectClause</label>
                                     <config>
                                         <type>input</type>
-                                        <size>30</size>
-                                    </config>
+                                        <size>50</size>
+                                    </config>                           
                                 </TCEforms>
-                            </modelClassName>
-                            <fieldName>
+                            </selectClause>         
+                            <fromClause>
                                 <TCEforms>
-                                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.fieldName</label>
+                                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.fromClause</label>
                                     <config>
                                         <type>input</type>
-                                        <size>30</size>
+                                        <size>50</size>  
+                                    </config>                           
+                                </TCEforms>
+                            </fromClause>
+                            <whereClause>
+                                <TCEforms>
+                                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.whereClause</label>
+                                    <config>
+                                        <type>input</type>
+                                        <size>50</size> 
+                                    </config>                           
+                                </TCEforms>
+                            </whereClause>  
+                            <groupByClause>
+                                <TCEforms>
+                                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.groupByClause</label>
+                                    <config>
+                                        <type>input</type>
+                                        <size>50</size>
+                                    </config>                           
+                                </TCEforms>
+                            </groupByClause>        
+                            <orderByClause>
+                                <TCEforms>
+                                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.orderByClause</label>
+                                    <config>
+                                        <type>input</type>
+                                        <size>50</size>
+                                    </config>                           
+                                </TCEforms>
+                            </orderByClause>                                                    
+                            <filterWhereClause>
+                                <TCEforms>
+                                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.filterWhereClause</label>
+                                    <config>
+                                        <type>input</type>
+                                        <size>50</size>
                                     </config>
                                 </TCEforms>
-                            </fieldName>                                    
+                            </filterWhereClause>                                                                                                                                            
                         </el>
                     </item>
                 </el>                        

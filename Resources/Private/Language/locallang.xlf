@@ -156,7 +156,10 @@ This link is valid only for one request.
 			</trans-unit>	
 			<trans-unit id="flexform.queryResultMvc" xml:space="preserve">
 				<source>Display the given fields for the given model when a filter is applied</source>
-			</trans-unit>								
+			</trans-unit>		
+            <trans-unit id="flexform.relatedProperty" xml:space="preserve">
+                <source>Related property or field name</source>
+            </trans-unit>       									
 			<trans-unit id="flexform.searchBox" xml:space="preserve">
 				<source>Add a search box</source>
 			</trans-unit>			
@@ -207,7 +210,10 @@ This link is valid only for one request.
             </trans-unit>           
   			<trans-unit id="flexform.whereClause" xml:space="preserve">
 				<source>WHERE clause</source>
-			</trans-unit>		           		
+			</trans-unit>	
+            <trans-unit id="form.cancel" xml:space="preserve">
+                <source>Cancel the filter</source>
+            </trans-unit>				           		
 			<trans-unit id="form.submit" xml:space="preserve">
 				<source>Submit</source>
 			</trans-unit>

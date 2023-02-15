@@ -11,36 +11,82 @@
 			</AND>
 		</displayCond>
 		<el>
-            <settings.flexform.alphabeticFilterMvc.modelClassName>
+            <settings.flexform.alphabeticFilterMvc.selectClause>
                 <TCEforms>
-                    <exclude>0</exclude>
-                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.modelClassName</label>
+                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.selectClause</label>
                     <config>
                         <type>input</type>
-                        <size>30</size>
-                    </config>
+                        <size>50</size>
+                    </config>                           
                 </TCEforms>
-            </settings.flexform.alphabeticFilterMvc.modelClassName>
-            <settings.flexform.alphabeticFilterMvc.fieldName>
+            </settings.flexform.alphabeticFilterMvc.selectClause>          
+            <settings.flexform.alphabeticFilterMvc.fromClause>
                 <TCEforms>
-                    <exclude>0</exclude>
-                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.fieldName</label>
+                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.fromClause</label>
                     <config>
                         <type>input</type>
-                        <size>30</size>
+                        <size>50</size>
+                    </config>                           
+                </TCEforms>
+            </settings.flexform.alphabeticFilterMvc.fromClause>
+            <settings.flexform.alphabeticFilterMvc.whereClause>
+                <TCEforms>
+                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.whereClause</label>
+                    <config>
+                        <type>input</type>
+                        <size>50</size>
+                    </config>                           
+                </TCEforms>
+            </settings.flexform.alphabeticFilterMvc.whereClause>   
+            <settings.flexform.alphabeticFilterMvc.groupByClause>
+                <TCEforms>
+                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.groupByClause</label>
+                    <config>
+                        <type>input</type>
+                        <size>50</size>
+                    </config>                           
+                </TCEforms>
+            </settings.flexform.alphabeticFilterMvc.groupByClause>                         
+            <settings.flexform.alphabeticFilterMvc.filterWhereClause>
+                <TCEforms>
+                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.filterWhereClause</label>
+                    <config>
+                        <type>input</type>
+                        <size>50</size>
                     </config>
                 </TCEforms>
-            </settings.flexform.alphabeticFilterMvc.fieldName>                    
+            </settings.flexform.alphabeticFilterMvc.filterWhereClause>
+            <settings.flexform.alphabeticFilterMvc.allowedGroups>
+                <TCEforms>
+                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.allowedGroups</label>
+                    <config>
+                        <type>group</type>
+                        <internal_type>db</internal_type>
+                        <allowed>fe_groups</allowed>
+                        <size>3</size>
+                        <maxitems>22</maxitems>
+                        <minitems>0</minitems>
+                    </config>
+                </TCEforms>
+            </settings.flexform.alphabeticFilterMvc.allowedGroups>             
+            <settings.flexform.alphabeticFilterMvc.searchBox>
+                <TCEforms>
+                    <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.searchBox</label>
+                    <config>
+                        <type>check</type>
+                        <default>1</default>
+                    </config>
+                </TCEforms>
+            </settings.flexform.alphabeticFilterMvc.searchBox>
             <settings.flexform.alphabeticFilterMvc.searchFields>
                 <TCEforms>
-                    <exclude>0</exclude>
                     <label>LLL:EXT:sav_filters/Resources/Private/Language/locallang.xlf:flexform.searchFields</label>
                     <config>
                         <type>input</type>
-                       <size>30</size>
+                        <size>50</size>
                     </config>
                 </TCEforms>
-            </settings.flexform.alphabeticFilterMvc.searchFields>    					
+            </settings.flexform.alphabeticFilterMvc.searchFields>						
 		</el>
 	</ROOT>
 </T3DataStructure>			

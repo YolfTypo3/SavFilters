@@ -28,14 +28,6 @@ The default root paths can be changed by modifying the following
 Configuration of the Icons
 ==========================
 
-Use the following syntax to change the search icon.
-
-::
-
-   plugin.tx_savfilters.settings.alphabeticFilter.searchIcon = yourSearchIconPath
-   plugin.tx_savfilters.settings.monthsFilter.searchIcon = yourSearchIconPath	
-   plugin.tx_savfilters.settings.searchFilter.searchIcon = yourSearchIconPath
-   
 Use the following syntax to change the mini calendar icons.
 
 ::

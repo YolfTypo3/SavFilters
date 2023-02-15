@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -14,6 +16,8 @@
  */
 
 namespace YolfTypo3\SavFilters\Filters;
+
+use YolfTypo3\SavFilters\Controller\DefaultController;
 
 /**
  * Debug filter
@@ -46,6 +50,10 @@ class DebugFilter extends AbstractFilter
      */
     protected function filterProcessing()
     {
+        // Checks if the filter should be processed
+        $libraryType = $this->sessionFilter[$this->sessionFilterSelected]['libraryType'];
+        if ($libraryType != DefaultController::FilterForSavLibraryPlus) {            return;
+        }
         if ($this->controller->getFilterSetting('queryResult')) {
 
             // Creates the query builder
