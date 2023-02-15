@@ -50,6 +50,7 @@ Table of Contents
    :glob:
   
    Introduction/Index
-
+   Filters/Index
+   Configuration/Index
       
    Changelog/Index
