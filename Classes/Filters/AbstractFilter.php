@@ -406,13 +406,12 @@ abstract class AbstractFilter
      */
     protected function getQueryBuilder(?string $table): ?QueryBuilder
     {
-
         if ($table === null) {
             return null;
         }
         // Filters the FROM clause to get the INNER JOIN parts if any);
         $match = [];
-        preg_match_all('/^(?P<From>\w+)(?P<InnerJoin>.+)?$/s', $table, $match);
+        preg_match_all('/^\s*(?P<From>\w+)(?P<InnerJoin>.+)?$/s', $table, $match);
         $fromClause = $match['From'][0];
         $innerJoinClause = $match['InnerJoin'][0];
         $matches = [];
