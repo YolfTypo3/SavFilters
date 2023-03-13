@@ -92,8 +92,8 @@ Creating a Search Box
 =====================
 
 A search box can be easily created using the partial ``SearchBox`` provided 
-withthe extension. It uses a Fluid variable ``{searchValue}`` which is used
-in the ``WHERE`` clause to be added by the filter.
+with the extension. It uses a Fluid variable ``{searchValue}`` for  the ``WHERE`` 
+clause to be added by the filter.
 
 .. figure:: ../../Images/SelectorsFilterSearchBoxInBackend.png
    :alt: Configuration of a search box in the backend 

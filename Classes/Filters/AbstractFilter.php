@@ -413,7 +413,8 @@ abstract class AbstractFilter
         $match = [];
         preg_match_all('/^\s*(?P<From>\w+)(?P<InnerJoin>.+)?$/s', $table, $match);
         $fromClause = $match['From'][0];
-        $innerJoinClause = $match['InnerJoin'][0];
+        $innerJoinClause = $match['InnerJoin'][0] ?? '';
+
         $matches = [];
         preg_match_all('/\s+INNER JOIN\s+(?P<Table>\w+)(?P<Alias>\s+\w+)?\s+ON\s+(?P<OnLeft>[^=\s]+)\s*=\s*(?P<OnRight>[^\s]*)/', $innerJoinClause, $matches);
 
