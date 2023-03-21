@@ -253,6 +253,7 @@
     align-items: flex-start;
     flex-wrap: wrap;
     justify-content: flex-start;
+    margin-bottom: 2px;
 }
 .savFilters .container.SelectorsFilter ul li {
     margin:0 5px;
